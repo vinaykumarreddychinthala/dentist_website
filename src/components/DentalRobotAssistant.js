@@ -1,14 +1,13 @@
 import { useEffect, useState, useRef } from "react";
-
-const DentalRobotAssistant = () => {
-  const messages = [
+const messages = [
     "Hello! I'm D3, your AI dental assistant. Ready to help!",
     "Time for your smile check-up! I'm here for you.",
     "Advanced diagnostics at your service, 24/7.",
     "Let's keep your smile healthy and bright!",
     "Booking your appointment is just one click away.",
     "ADA Accredited · 15,000+ Happy Patients served!"
-  ];
+];
+const DentalRobotAssistant = () => {
 
   const [msgIdx, setMsgIdx] = useState(0);
   const [typedText, setTypedText] = useState("");
