@@ -65,6 +65,18 @@ const Services = () => {
   const [openFaq, setOpenFaq] = useState(null);
   const [hoveredService, setHoveredService] = useState(null);
   const containerRef = useRef(null);
+  const videoRef = useRef(null);
+  const handleTimeUpdate = () => {
+  const video = videoRef.current;
+  if (!video || !video.duration) return;
+
+  const stopTime = video.duration - 4; // cut last 4 seconds
+
+  if (video.currentTime >= stopTime) {
+    video.currentTime = 0;
+    video.play();
+  }
+};
   const { scrollYProgress } = useScroll({ target: containerRef });
   const yParallax = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
@@ -235,7 +247,7 @@ const Services = () => {
             transition={{ delay: 1.2, duration: 1 }}
             className="mt-16 grid grid-cols-3 gap-6 max-w-lg mx-auto"
           >
-            {[['5000+', 'Happy Patients'], ['15+', 'Years of Care'], ['98%', 'Success Rate']].map(([num, label], i) => (
+            {[['15000+', 'Happy Patients'], ['10+', 'Years of Care'], ['99%', 'Success Rate']].map(([num, label], i) => (
               <div key={i} className="text-center">
                 <div className="font-heading text-2xl md:text-3xl font-extrabold text-primary">{num}</div>
                 <div className="text-xs text-text-light font-medium mt-1">{label}</div>
@@ -261,23 +273,41 @@ const Services = () => {
       </section>
 
       {/* ===== ANIMATED TOOTH SECTION ===== */}
-<section className="relative min-h-[600px] md:min-h-[750px] py-20 px-6 overflow-hidden flex items-center">
+<section className="relative min-h-[650px] md:min-h-[750px] py-20 px-6 overflow-hidden flex items-center bg-gradient-to-b from-gray-50 via-white to-gray-100">
+{/* ===== Center Video ===== */}
+<div className="absolute inset-0 flex items-center justify-center">
 
-  {/* ===== Background Video ===== */}
-  <video
-    autoPlay
-    loop
-    muted
-    playsInline
-    className="absolute inset-0 w-full h-full object-cover"
+  {/* background glow */}
+  <div className="absolute w-[900px] h-[500px] bg-primary/20 blur-[140px] rounded-full opacity-40"></div>
+
+  {/* rounded background plate */}
+  <div className="absolute w-[82%] max-w-[1200px] aspect-video rounded-[40px] bg-gradient-to-b from-white to-gray-50 shadow-[0_40px_120px_rgba(0,0,0,0.12)]"></div>
+
+  {/* video container */}
+  <motion.div
+    initial={{ opacity: 0, scale: 0.92 }}
+    whileInView={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 1 }}
+   className="relative w-[78%] max-w-[1100px] aspect-video rounded-[28px] overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.18)]"
   >
-    <source src="/Dentalvid.mp4" type="video/mp4" />
-    Your browser does not support the video tag.
-  </video>
+
+    <video
+      ref={videoRef}
+      autoPlay
+      muted
+      playsInline
+      onTimeUpdate={handleTimeUpdate}
+      className="w-full h-full object-cover"
+    >
+      <source src="/Dentalvid.mp4" type="video/mp4" />
+    </video>
+
+  </motion.div>
+
+</div>
 
   {/* ===== Dark + Gradient Overlay (Important for visibility) ===== */}
-  <div className="absolute inset-0 bg-black/40 z-0" />
-  <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-accent/30 to-white/20 z-0" />
+
 
   {/* ===== Content Container ===== */}
   <div className="relative z-10 container mx-auto flex items-center justify-center">
@@ -306,59 +336,7 @@ const Services = () => {
         style={{ borderStyle: 'dotted' }}
       />
 
-      {/* Orbital dots */}
-      {[...Array(6)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-3 h-3 rounded-full bg-white/60"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 8 + i, repeat: Infinity, ease: 'linear' }}
-          style={{
-            transformOrigin: `0 ${-80 - i * 5}px`,
-          }}
-        />
-      ))}
 
-      {/* Center tooth */}
-      <motion.div
-        animate={{ y: [0, -15, 0], rotate: [0, 3, -3, 0] }}
-        transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
-        className="relative z-10 w-28 h-28 bg-white rounded-2xl shadow-2xl flex items-center justify-center"
-        style={{ boxShadow: '0 20px 60px rgba(0,0,0,0.4)' }}
-      >
-        <span className="text-6xl">🦷</span>
-
-        {/* Glow */}
-        <motion.div
-          animate={{ opacity: [0.3, 0.7, 0.3], scale: [1, 1.2, 1] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="absolute inset-0 rounded-2xl bg-white/30 blur-xl"
-        />
-      </motion.div>
-
-      {/* Shadow */}
-      <motion.div
-        animate={{ scaleX: [1, 1.4, 1], opacity: [0.3, 0.5, 0.3] }}
-        transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-24 h-4 bg-black rounded-full blur-xl"
-      />
-
-      {/* Floating sparkles */}
-      {['✦', '★', '✧', '◆'].map((s, i) => (
-        <motion.span
-          key={i}
-          className="absolute text-white font-bold select-none"
-          style={{
-            fontSize: 14 + i * 4,
-            top: `${[10, 75, 20, 65][i]}%`,
-            left: `${[80, 85, 5, 8][i]}%`,
-          }}
-          animate={{ scale: [0, 1, 0], opacity: [0, 1, 0], rotate: [0, 180] }}
-          transition={{ duration: 2, repeat: Infinity, delay: i * 0.5 }}
-        >
-          {s}
-        </motion.span>
-      ))}
 
     </motion.div>
 
@@ -406,14 +384,11 @@ const Services = () => {
                   >
                     {/* Animated background on hover */}
                     <motion.div
-                      initial={{ opacity: 0, scale: 0.8, x: '100%', y: '100%' }}
-                      animate={hoveredService === index
-                        ? { opacity: 1, scale: 2, x: '-10%', y: '-10%' }
-                        : { opacity: 0, scale: 0.8, x: '100%', y: '100%' }
-                      }
-                      transition={{ duration: 0.5 }}
-                      className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-5 rounded-full`}
-                    />
+  initial={{ scale: 0 }}
+  animate={hoveredService === index ? { scale: 2.4 } : { scale: 0 }}
+  transition={{ duration: 0.6, ease: "easeOut" }}
+  className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-90`}
+ />
 
                     {/* Emoji floating top right */}
                     <motion.div
@@ -428,7 +403,7 @@ const Services = () => {
                     <motion.div
                       whileHover={{ rotate: [0, -10, 10, 0] }}
                       transition={{ duration: 0.5 }}
-                      className="relative bg-accent rounded-xl p-4 w-fit mb-6 group-hover:bg-primary transition-colors duration-300 overflow-hidden"
+                      className="relative bg-accent rounded-xl p-4 w-fit mb-6 group-hover:bg-white/20 transition-colors duration-300 overflow-hidden"
                     >
                       <motion.div
                         className="absolute inset-0 bg-primary opacity-0 group-hover:opacity-100"
@@ -441,14 +416,16 @@ const Services = () => {
                     </motion.div>
 
                     {/* Number */}
-                    <div className="absolute bottom-6 right-6 font-heading text-6xl font-black text-green-50 group-hover:text-green-100 transition-colors duration-300 leading-none select-none">
+                    <div className="absolute bottom-6 right-6 font-heading text-5xl font-black text-primary/20 group-hover:text-white/20 transition-colors duration-300 leading-none select-none z-10">
                       {String(index + 1).padStart(2, '0')}
                     </div>
 
-                    <h3 className="font-heading text-xl md:text-2xl font-semibold text-secondary mb-4 relative z-10">
+                   <h3 className="font-heading text-xl md:text-2xl font-semibold text-secondary mb-4 relative z-10 group-hover:text-white transition-colors duration-300">
                       {service.title}
                     </h3>
-                    <p className="text-text-light leading-relaxed relative z-10">{service.description}</p>
+                    <p className="text-text-light leading-relaxed relative z-10 group-hover:text-white transition-colors duration-300">
+                      {service.description}
+                    </p>
 
                     {/* Bottom accent line */}
                     <motion.div

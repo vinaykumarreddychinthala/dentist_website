@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { MapPin, Phone, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useState, useRef } from "react";
 
 const About = () => {
   const timeline = [
@@ -10,6 +11,23 @@ const About = () => {
     { year: '2018', event: 'Installed CEREC same-day crown technology serving 500+ crowns/year.' },
     { year: '2024', event: 'Reached 15,000 patients milestone. Launched free annual dental health day.' },
   ];
+  const videoRef = useRef(null);
+
+const handleTimeUpdate = () => {
+  const video = videoRef.current;
+  if (!video) return;
+
+  const start = 20; // skip first 30 sec
+  const end = video.duration - 15; // cut last 15 sec
+
+  if (video.currentTime < start) {
+    video.currentTime = start;
+  }
+
+  if (video.currentTime >= end) {
+    video.currentTime = start;
+  }
+};
 
   const coreValues = [
     {
@@ -198,8 +216,20 @@ const About = () => {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 px-6 md:px-12 lg:px-24 bg-accent">
-        <div className="container mx-auto">
+      <section className="relative py-16 md:py-24 px-6 md:px-12 lg:px-24 bg-gradient-to-br from-accent via-white to-white overflow-hidden">
+        {/* mesh gradient background */}
+<div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(76,175,80,0.12),transparent)]"></div>
+
+{/* dot grid pattern */}
+<div
+  className="absolute inset-0 opacity-50"
+  style={{
+    backgroundImage:
+      "radial-gradient(circle, rgba(76,175,80,0.15) 1px, transparent 1px)",
+    backgroundSize: "40px 40px",
+  }}
+></div>
+        <div className="container mx-auto relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -302,36 +332,46 @@ const About = () => {
             ))}
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            data-testid="about-animation"
-            className="relative h-[300px] flex items-center justify-center my-12"
-          >
-            <div className="flex gap-4 items-end">
-              {[...Array(8)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ scaleY: 0.5, backgroundColor: '#8B4513' }}
-                  animate={{ scaleY: 1, backgroundColor: '#FFFFFF' }}
-                  transition={{
-                    duration: 2,
-                    delay: i * 0.2,
-                    repeat: Infinity,
-                    repeatType: 'reverse',
-                  }}
-                  className="w-12 h-24 rounded-lg shadow-lg border-2 border-primary"
-                  style={{ transformOrigin: 'bottom' }}
-                />
-              ))}
-            </div>
-          </motion.div>
+         <motion.div
+  initial={{ opacity: 0, scale: 0.95 }}
+  whileInView={{ opacity: 1, scale: 1 }}
+  viewport={{ once: true }}
+  transition={{ duration: 1 }}
+  className="relative max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-2xl my-16"
+>
+
+  <video
+    ref={videoRef}
+    autoPlay
+    muted
+    playsInline
+    onLoadedMetadata={() => {
+      videoRef.current.currentTime = 30;
+    }}
+    onTimeUpdate={handleTimeUpdate}
+    className="w-full h-full object-cover"
+  >
+    <source src="/dentalweb.mp4" type="video/mp4" />
+  </video>
+
+</motion.div>
         </div>
       </section>
 
-      <section className="py-16 md:py-24 px-6 md:px-12 lg:px-24 bg-accent">
-        <div className="container mx-auto">
+      <section className="relative py-16 md:py-24 px-6 md:px-12 lg:px-24 overflow-hidden bg-gradient-to-br from-green-50 via-white to-white">
+        {/* Mesh background */}
+<div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,rgba(76,175,80,0.15),transparent)]"></div>
+
+{/* Dot grid pattern */}
+<div
+  className="absolute inset-0 z-0 opacity-40"
+  style={{
+    backgroundImage:
+      "radial-gradient(circle, rgba(76,175,80,0.15) 1px, transparent 1px)",
+    backgroundSize: "40px 40px",
+  }}
+></div>
+        <div className="container mx-auto relative z-10">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}

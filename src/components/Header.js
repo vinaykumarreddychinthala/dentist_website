@@ -29,20 +29,19 @@ const Header = () => {
           </Link>
 
           {/* Desktop Navigation with increased spacing */}
-          <nav className="hidden md:flex space-x-12" data-testid="desktop-nav">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                data-testid={`nav-link-${link.name.toLowerCase()}`}
-                className={`font-heading font-semibold text-lg transition-all duration-300 hover:text-primary ${
-                  isActive(link.path) ? 'text-primary' : 'text-secondary'
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
-          </nav>
+<nav className="hidden md:flex items-center gap-14" data-testid="desktop-nav">
+  {navLinks.map((link) => (
+    <Link
+      key={link.path}
+      to={link.path}
+      className={`relative font-heading font-semibold text-lg transition-all duration-300 hover:text-primary ${
+        isActive(link.path) ? 'text-primary' : 'text-secondary'
+      }`}
+    >
+      {link.name}
+    </Link>
+  ))}
+</nav>
 
           {/* Mobile Menu Button */}
           <button

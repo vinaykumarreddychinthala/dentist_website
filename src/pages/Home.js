@@ -3,6 +3,16 @@ import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, Star, CheckCircle, ChevronDown } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import DentalRobotAssistant from '../components/DentalRobotAssistant';
+import { Smile, Sparkles, ShieldCheck, Plane } from "lucide-react";
+import {
+  Stethoscope,
+  Cpu,
+  HeartHandshake,
+  Wallet,
+  Clock,
+  Users,
+  FileText
+} from "lucide-react";
 
 // ===== ANIMATED COUNTER =====
 const AnimatedCounter = ({ end, duration = 2, suffix = '' }) => {
@@ -76,15 +86,47 @@ const Home = () => {
   ];
 
   const features = [
-    { title: 'Expert Doctors', description: 'Certified implantologists and specialists with international training.', icon: '👨‍⚕️', delay: 0 },
-    { title: 'Advanced Technology', description: 'State-of-the-art equipment for painless and precise treatments.', icon: '⚡', delay: 0.1 },
-    { title: 'Comprehensive Care', description: 'From kids to adults, complete dental solutions under one roof.', icon: '💚', delay: 0.2 },
-    { title: 'Affordable Pricing', description: 'Quality dental care that fits your budget with flexible payment options.', icon: '💰', delay: 0.3 },
-    { title: 'Same-Day Service', description: 'Emergency dental care available 7 days a week for urgent needs.', icon: '⏰', delay: 0.4 },
-    { title: 'Comfort First', description: 'Modern, spa-like facilities designed for your relaxation and comfort.', icon: '✨', delay: 0.5 },
-    { title: 'Family Friendly', description: 'Welcoming environment for patients of all ages with kid-friendly spaces.', icon: '👨‍👩‍👧‍👦', delay: 0.6 },
-    { title: 'Digital Records', description: 'Secure digital health records accessible anytime, anywhere.', icon: '📱', delay: 0.7 },
-  ];
+  {
+    title: "Expert Doctors",
+    description: "Certified implantologists and specialists with international training.",
+    icon: Stethoscope
+  },
+  {
+    title: "Advanced Technology",
+    description: "State-of-the-art equipment for painless and precise treatments.",
+    icon: Cpu
+  },
+  {
+    title: "Comprehensive Care",
+    description: "From kids to adults, complete dental solutions under one roof.",
+    icon: HeartHandshake
+  },
+  {
+    title: "Affordable Pricing",
+    description: "Quality dental care that fits your budget with flexible payment options.",
+    icon: Wallet
+  },
+  {
+    title: "Same-Day Service",
+    description: "Emergency dental care available 7 days a week for urgent needs.",
+    icon: Clock
+  },
+  {
+    title: "Comfort First",
+    description: "Modern, spa-like facilities designed for your relaxation and comfort.",
+    icon: Sparkles
+  },
+  {
+    title: "Family Friendly",
+    description: "Welcoming environment for patients of all ages with kid-friendly spaces.",
+    icon: Users
+  },
+  {
+    title: "Digital Records",
+    description: "Secure digital health records accessible anytime, anywhere.",
+    icon: FileText
+  }
+];
 
   useEffect(() => {
     const interval = setInterval(() => setActiveTestimonial(p => (p + 1) % 3), 4000);
@@ -205,38 +247,91 @@ const Home = () => {
                 ))}
                 <div className="relative w-full h-full flex items-center justify-center p-8">
                   <div className="tooth-exploded-container">
-                    {[
-                      { cls: 'crown', label: 'Crown', yVals: [0, -80, 0], bg: 'linear-gradient(135deg, #F8F8FF 0%, #FFFFFF 100%)', shadow: '0 4px 20px rgba(76,175,80,0.2), inset 0 2px 10px rgba(168,213,162,0.3)', delay: 0 },
-                      { cls: 'enamel', label: 'Enamel', yVals: [0, -50, 0], bg: 'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,248,255,0.85) 100%)', shadow: '0 3px 15px rgba(168,213,162,0.25)', delay: 0.1 },
-                      { cls: 'dentin', label: 'Dentin', yVals: [0, -30, 0], bg: 'linear-gradient(135deg, #F8F8FF 0%, #D8C8E8 100%)', shadow: '0 3px 12px rgba(216,200,232,0.3)', delay: 0.2 },
-                      { cls: 'pulp', label: 'Pulp', yVals: [0, 0, 0], bg: 'radial-gradient(circle, #FFB6C1 0%, #D8A8B8 100%)', shadow: '0 0 20px rgba(255,182,193,0.4)', delay: 0.3, scale: true },
-                      { cls: 'root-canal', label: 'Root Canal', yVals: [0, 30, 0], bg: 'linear-gradient(180deg, #D8C8E8 0%, #C8B8D8 100%)', shadow: '0 2px 10px rgba(216,200,232,0.3)', delay: 0.4 },
-                      { cls: 'implant', label: 'Implant Base', yVals: [0, 50, 0], bg: 'linear-gradient(180deg, #C0C0C0 0%, #A0A0A0 100%)', shadow: '0 2px 15px rgba(168,213,162,0.35)', delay: 0.5 },
-                    ].map(({ cls, label, yVals, bg, shadow, delay, scale: doScale }) => (
-                      <motion.div
-                        key={cls}
-                        animate={doScale ? { y: yVals, scale: [1, 1.05, 1], rotateY: [0, 5, 0] } : { y: yVals, rotateY: [0, 15, 0] }}
-                        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', times: [0, 0.3, 1], delay }}
-                        className={`tooth-layer ${cls}`}
-                      >
-                        <div className="layer-inner" style={{ background: bg, boxShadow: shadow }} />
-                        <span className="layer-label">{label}</span>
-                      </motion.div>
-                    ))}
+                  {[
+  { cls: 'crown', label: 'Crown', yVals: [0, -80, 0], bg: 'linear-gradient(135deg, #F8F8FF 0%, #FFFFFF 100%)', shadow: '0 4px 20px rgba(76,175,80,0.2), inset 0 2px 10px rgba(168,213,162,0.3)', delay: 0 },
+  { cls: 'enamel', label: 'Enamel', yVals: [0, -50, 0], bg: 'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,248,255,0.85) 100%)', shadow: '0 3px 15px rgba(168,213,162,0.25)', delay: 0.1 },
+  { cls: 'dentin', label: 'Dentin', yVals: [0, -30, 0], bg: 'linear-gradient(135deg, #F8F8FF 0%, #D8C8E8 100%)', shadow: '0 3px 12px rgba(216,200,232,0.3)', delay: 0.2 },
+  { cls: 'pulp', label: 'Pulp', yVals: [0, 0, 0], bg: 'radial-gradient(circle, #FFB6C1 0%, #D8A8B8 100%)', shadow: '0 0 20px rgba(255,182,193,0.4)', delay: 0.3, scale: true },
+  { cls: 'root-canal', label: 'Root Canal', yVals: [0, 30, 0], bg: 'linear-gradient(180deg, #D8C8E8 0%, #C8B8D8 100%)', shadow: '0 2px 10px rgba(216,200,232,0.3)', delay: 0.4 },
+  { cls: 'implant', label: 'Implant Base', yVals: [0, 50, 0], bg: 'linear-gradient(180deg, #C0C0C0 0%, #A0A0A0 100%)', shadow: '0 2px 15px rgba(168,213,162,0.35)', delay: 0.5 },
+].map(({ cls, label, yVals, bg, shadow, delay, scale: doScale }) => (
+  <motion.div
+    key={cls}
+    animate={{
+      y: yVals,
+      scale: doScale ? [1, 1.08, 1] : [1, 1.03, 1],
+      rotateY: [0, 10, -10, 0],
+      rotateX: [0, 4, -4, 0],
+      z: [0, 10, 0],
+    }}
+    transition={{
+      duration: 8,
+      repeat: Infinity,
+      ease: [0.16, 1, 0.3, 1],
+      times: [0, 0.35, 0.7, 1],
+      delay,
+    }}
+    whileHover={{
+      scale: 1.12,
+      rotateY: 20,
+      rotateX: 10,
+    }}
+    className={`tooth-layer ${cls}`}
+  >
+    <motion.div
+      className="layer-inner"
+      style={{ background: bg, boxShadow: shadow }}
+      animate={{
+        boxShadow: [
+          shadow,
+          "0 12px 35px rgba(76,175,80,0.35)",
+          shadow
+        ]
+      }}
+      transition={{
+        duration: 4,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }}
+    />
+    <span className="layer-label">{label}</span>
+  </motion.div>
+))}
                   </div>
                 </div>
               </div>
 
-              {[
-                { text: '🦷 Painless', pos: 'top-6 right-4' },
-                { text: '✨ Advanced', pos: 'bottom-16 right-2' },
-                { text: '💚 Certified', pos: 'top-8 left-2' },
-                { text: '✈️ Nearest To Airport', pos: 'bottom-8 left-2' },
-              ].map(({ text, pos }, i) => (
-                <motion.div key={i} className={`absolute ${pos} bg-white/90 backdrop-blur-sm text-secondary text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg border border-green-50`} animate={{ y: [0, -8, 0] }} transition={{ duration: 3 + i, repeat: Infinity, delay: i * 0.8, ease: 'easeInOut' }}>
-                  {text}
-                </motion.div>
-              ))}
+{[
+  { icon: Smile, text: "Painless Care", pos: "top-6 right-4" },
+  { icon: Sparkles, text: "Advanced Technology", pos: "bottom-16 right-2" },
+  { icon: ShieldCheck, text: "Certified Experts", pos: "top-8 left-2" },
+  { icon: Plane, text: "Near Airport", pos: "bottom-8 left-2" },
+].map(({ icon: Icon, text, pos }, i) => (
+  <motion.div
+    key={i}
+    className={`absolute ${pos} flex items-center gap-3 bg-white/95 backdrop-blur-md text-secondary text-base font-semibold px-5 py-2.5 rounded-full shadow-xl border border-green-100`}
+    
+    animate={{
+      y: [0, -10, 0],
+      scale: [1, 1.04, 1],
+    }}
+
+    transition={{
+      duration: 3 + i,
+      repeat: Infinity,
+      delay: i * 0.8,
+      ease: "easeInOut"
+    }}
+
+    whileHover={{
+      scale: 1.1,
+      boxShadow: "0 15px 40px rgba(76,175,80,0.25)"
+    }}
+  >
+    <Icon size={20} className="text-primary" strokeWidth={2.2} />
+    <span className="tracking-wide">{text}</span>
+  </motion.div>
+))}
             </motion.div>
           </div>
         </motion.div>
@@ -261,9 +356,9 @@ const Home = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
               { number: 15000, suffix: '+', label: 'Happy Patients', emoji: '😁' },
-              { number: 98, suffix: '%', label: 'Satisfaction Rate', emoji: '⭐' },
-              { number: 22, suffix: '+', label: 'Years Experience', emoji: '🏆' },
-              { number: 12, suffix: '', label: 'Expert Dentists', emoji: '👨‍⚕️' },
+              { number: 99, suffix: '%', label: 'Satisfaction Rate', emoji: '⭐' },
+              { number: 10, suffix: '+', label: 'Years Experience', emoji: '🏆' },
+              { number: 9, suffix: '', label: 'Expert Dentists', emoji: '👨‍⚕️' },
             ].map((stat, index) => (
               <motion.div
                 key={index}
@@ -439,26 +534,57 @@ const Home = () => {
             </h2>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-            {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 40, scale: 0.9 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: feature.delay, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ scale: 1.04, y: -8, boxShadow: '0 25px 50px rgba(76,175,80,0.18)' }}
-                className="bg-white p-6 rounded-2xl shadow-sm transition-all duration-300 border border-green-50 hover:border-green-200 group relative overflow-hidden"
-                data-testid={`feature-card-${index}`}
-              >
-                <MorphBlob className="w-28 h-28 bg-primary/5 -top-6 -right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500" duration={5} />
-                <motion.div className="text-4xl mb-4 relative z-10" whileHover={{ rotate: [0, -15, 15, 0], scale: 1.3 }} transition={{ duration: 0.5 }}>{feature.icon}</motion.div>
-                <h3 className="font-heading text-base font-bold text-secondary mb-2 group-hover:text-primary transition-colors relative z-10">{feature.title}</h3>
-                <p className="text-text-light text-sm leading-relaxed relative z-10">{feature.description}</p>
-                <motion.div initial={{ width: 0 }} whileHover={{ width: '100%' }} transition={{ duration: 0.4 }} className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-primary to-emerald-400" />
-              </motion.div>
-            ))}
-          </div>
+         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+  {features.map((feature, index) => (
+    <motion.div
+      key={index}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0, ease: "easeOut" }}
+      whileHover={{
+        scale: 1.06,
+        y: -8,
+        boxShadow: "0 25px 60px rgba(76,175,80,0.2)"
+      }}
+      className="bg-white p-6 rounded-2xl shadow-sm transition-all duration-300 border border-green-100 group relative overflow-hidden"
+    >
+
+      {/* glow background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-green-50 to-transparent opacity-0 group-hover:opacity-100 transition duration-300" />
+
+      {/* icon */}
+      <motion.div
+        className="relative z-10 mb-4 w-14 h-14 flex items-center justify-center rounded-xl bg-primary/10 text-primary"
+        whileHover={{
+          scale: 1.3,
+          rotate: [0, -10, 10, 0]
+        }}
+        transition={{ duration: 0.6 }}
+      >
+        <feature.icon size={28} strokeWidth={2.3} />
+      </motion.div>
+
+      {/* title */}
+      <h3 className="font-heading text-lg font-bold text-secondary mb-2 relative z-10 group-hover:text-primary transition">
+        {feature.title}
+      </h3>
+
+      {/* description */}
+      <p className="text-text-light text-sm leading-relaxed relative z-10">
+        {feature.description}
+      </p>
+
+      {/* bottom animation */}
+      <motion.div
+        initial={{ width: 0 }}
+        whileHover={{ width: "100%" }}
+        transition={{ duration: 0.4 }}
+        className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-primary to-emerald-400"
+      />
+    </motion.div>
+  ))}
+</div>
         </div>
       </section>
 
