@@ -257,41 +257,7 @@ const Contact = () => {
         `}</style>
       </section>
 
-      {/* ===== ANIMATED TEETH SECTION ===== */}
-      <section className="py-12 px-6 bg-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-white via-accent/20 to-white" />
-        <div className="container mx-auto flex items-center justify-center relative" data-testid="contact-animation">
-          <div className="flex items-end gap-1.5">
-            {[...Array(10)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="rounded-t-full rounded-b-lg shadow-md relative overflow-hidden"
-                style={{ width: 28, height: 56 + (i % 3) * 14 }}
-                animate={{
-                  scaleY: [1, 1.2, 0.9, 1],
-                  backgroundColor: ['#e8f5e9', '#4CAF50', '#81c784', '#e8f5e9'],
-                }}
-                transition={{ duration: 2.5, delay: i * 0.12, repeat: Infinity, ease: 'easeInOut' }}
-              >
-                <motion.div
-                  className="absolute inset-x-0 top-0 h-1/2 bg-white/20 rounded-t-full"
-                  animate={{ opacity: [0.3, 0.7, 0.3] }}
-                  transition={{ duration: 2.5, delay: i * 0.12, repeat: Infinity }}
-                />
-              </motion.div>
-            ))}
-          </div>
-          <motion.div
-            initial={{ opacity: 0, scale: 0 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5, type: 'spring', bounce: 0.5 }}
-            className="absolute"
-          >
-            <span className="text-5xl">😁</span>
-          </motion.div>
-        </div>
-      </section>
+
 
       {/* ===== CONTACT INFO CARDS ===== */}
       <section className="py-12 px-6 md:px-12 lg:px-24 bg-white">

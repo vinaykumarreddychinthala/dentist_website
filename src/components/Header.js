@@ -20,13 +20,13 @@ const Header = () => {
     <header className="bg-white shadow-sm sticky top-0 z-50" data-testid="header">
       <div className="container mx-auto px-6 md:px-12 lg:px-24 py-4">
         <div className="flex justify-between items-center">
-          <Link to="/" className="flex items-center" data-testid="logo-link">
-            <img
-              src="https://customer-assets.emergentagent.com/job_9afac99a-4669-4907-a27b-d6d8df89e2a2/artifacts/bkkinign_Dentis3%20Care%20Logo%20%28Small%20logo%29-01.png"
-              alt="Dentis3 Care Logo"
-              className="h-12 md:h-16"
-            />
-          </Link>
+          <Link to="/" className="flex items-center bg-white rounded-lg px-2 py-1" data-testid="logo-link">
+  <img
+    src="logo.png"
+    alt="Dentis3 Care Logo"
+    className="h-12 md:h-16 object-contain"
+  />
+</Link>
 
           {/* Desktop Navigation with increased spacing */}
 <nav className="hidden md:flex items-center gap-14" data-testid="desktop-nav">

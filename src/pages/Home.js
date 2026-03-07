@@ -3,7 +3,7 @@ import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, Star, CheckCircle, ChevronDown } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import DentalRobotAssistant from '../components/DentalRobotAssistant';
-import { Smile, Sparkles, ShieldCheck, Plane } from "lucide-react";
+import { Smile,Bot,CalendarDays,Microscope,MessageCircle,Activity,Baby,Scissors,HeartPulse, Sparkles, ShieldCheck, Plane } from "lucide-react";
 import {
   Stethoscope,
   Cpu,
@@ -106,11 +106,7 @@ const Home = () => {
     description: "Quality dental care that fits your budget with flexible payment options.",
     icon: Wallet
   },
-  {
-    title: "Same-Day Service",
-    description: "Emergency dental care available 7 days a week for urgent needs.",
-    icon: Clock
-  },
+  
   {
     title: "Comfort First",
     description: "Modern, spa-like facilities designed for your relaxation and comfort.",
@@ -194,7 +190,7 @@ const Home = () => {
               </motion.p>
 
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7, duration: 0.9 }} className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
-                {['ADA Accredited', '15,000+ Happy Patients', 'Same-Day Emergency Care'].map((badge, i) => (
+                {['ADA Accredited', '15,000+ Happy Patients',].map((badge, i) => (
                   <motion.div key={i} whileHover={{ scale: 1.05, y: -2 }} className="flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-green-50 rounded-xl px-3 py-2.5 shadow-sm">
                     <CheckCircle className="text-primary flex-shrink-0" size={16} />
                     <span className="text-xs font-semibold text-secondary">{badge}</span>
@@ -246,58 +242,68 @@ const Home = () => {
                   <motion.div key={i} className={`absolute ${pos} w-3 h-3 rounded-full bg-primary/30`} animate={{ scale: [1, 1.5, 1], opacity: [0.3, 0.7, 0.3] }} transition={{ duration: 2, repeat: Infinity, delay: i * 0.5 }} />
                 ))}
                 <div className="relative w-full h-full flex items-center justify-center p-8">
-                  <div className="tooth-exploded-container">
-                  {[
-  { cls: 'crown', label: 'Crown', yVals: [0, -80, 0], bg: 'linear-gradient(135deg, #F8F8FF 0%, #FFFFFF 100%)', shadow: '0 4px 20px rgba(76,175,80,0.2), inset 0 2px 10px rgba(168,213,162,0.3)', delay: 0 },
-  { cls: 'enamel', label: 'Enamel', yVals: [0, -50, 0], bg: 'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,248,255,0.85) 100%)', shadow: '0 3px 15px rgba(168,213,162,0.25)', delay: 0.1 },
-  { cls: 'dentin', label: 'Dentin', yVals: [0, -30, 0], bg: 'linear-gradient(135deg, #F8F8FF 0%, #D8C8E8 100%)', shadow: '0 3px 12px rgba(216,200,232,0.3)', delay: 0.2 },
-  { cls: 'pulp', label: 'Pulp', yVals: [0, 0, 0], bg: 'radial-gradient(circle, #FFB6C1 0%, #D8A8B8 100%)', shadow: '0 0 20px rgba(255,182,193,0.4)', delay: 0.3, scale: true },
-  { cls: 'root-canal', label: 'Root Canal', yVals: [0, 30, 0], bg: 'linear-gradient(180deg, #D8C8E8 0%, #C8B8D8 100%)', shadow: '0 2px 10px rgba(216,200,232,0.3)', delay: 0.4 },
-  { cls: 'implant', label: 'Implant Base', yVals: [0, 50, 0], bg: 'linear-gradient(180deg, #C0C0C0 0%, #A0A0A0 100%)', shadow: '0 2px 15px rgba(168,213,162,0.35)', delay: 0.5 },
-].map(({ cls, label, yVals, bg, shadow, delay, scale: doScale }) => (
+       <div className="tooth-assembly-container">
+
+{[
+  {
+    cls: "tooth-crown",
+    label: "Crown",
+    y: -70,
+    color: "linear-gradient(180deg,#ffffff,#f1f5f9)"
+  },
+  {
+    cls: "tooth-enamel",
+    label: "Enamel",
+    y: -40,
+    color: "linear-gradient(180deg,#f8fafc,#e2e8f0)"
+  },
+  {
+    cls: "tooth-dentin",
+    label: "Dentin",
+    y: -10,
+    color: "linear-gradient(180deg,#fef3c7,#fde68a)"
+  },
+  {
+    cls: "tooth-pulp",
+    label: "Pulp",
+    y: 15,
+    color: "linear-gradient(180deg,#fda4af,#fb7185)"
+  },
+  {
+    cls: "tooth-root",
+    label: "Root",
+    y: 60,
+    color: "linear-gradient(180deg,#e2e8f0,#cbd5f5)"
+  }
+].map((part,i)=>(
   <motion.div
-    key={cls}
+    key={i}
     animate={{
-      y: yVals,
-      scale: doScale ? [1, 1.08, 1] : [1, 1.03, 1],
-      rotateY: [0, 10, -10, 0],
-      rotateX: [0, 4, -4, 0],
-      z: [0, 10, 0],
+      y:[0,part.y,0],
+      rotateY:[0,8,-8,0]
     }}
     transition={{
-      duration: 8,
-      repeat: Infinity,
-      ease: [0.16, 1, 0.3, 1],
-      times: [0, 0.35, 0.7, 1],
-      delay,
+      duration:7,
+      repeat:Infinity,
+      ease:"easeInOut",
+      delay:i*0.2
     }}
-    whileHover={{
-      scale: 1.12,
-      rotateY: 20,
-      rotateX: 10,
-    }}
-    className={`tooth-layer ${cls}`}
+    className={`tooth-part ${part.cls}`}
   >
-    <motion.div
-      className="layer-inner"
-      style={{ background: bg, boxShadow: shadow }}
-      animate={{
-        boxShadow: [
-          shadow,
-          "0 12px 35px rgba(76,175,80,0.35)",
-          shadow
-        ]
-      }}
-      transition={{
-        duration: 4,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }}
+
+    <div
+      className="tooth-inner"
+      style={{background:part.color}}
     />
-    <span className="layer-label">{label}</span>
+
+    <span className="tooth-label">
+      {part.label}
+    </span>
+
   </motion.div>
 ))}
-                  </div>
+
+</div>
                 </div>
               </div>
 
@@ -355,11 +361,11 @@ const Home = () => {
         <div className="container mx-auto relative z-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { number: 15000, suffix: '+', label: 'Happy Patients', emoji: '😁' },
-              { number: 99, suffix: '%', label: 'Satisfaction Rate', emoji: '⭐' },
-              { number: 10, suffix: '+', label: 'Years Experience', emoji: '🏆' },
-              { number: 9, suffix: '', label: 'Expert Dentists', emoji: '👨‍⚕️' },
-            ].map((stat, index) => (
+  { number: 15000, suffix: '+', label: 'Happy Patients', icon: Smile },
+  { number: 99, suffix: '%', label: 'Satisfaction Rate', icon: Star },
+  { number: 10, suffix: '+', label: 'Years Experience', icon: Sparkles },
+  { number: 9, suffix: '', label: 'Expert Dentists', icon: Activity },
+].map((stat, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 40, scale: 0.9 }}
@@ -370,7 +376,13 @@ const Home = () => {
                 className="relative bg-white border border-green-50 rounded-2xl p-6 text-center shadow-sm overflow-hidden group transition-all duration-300"
               >
                 <MorphBlob className="w-32 h-32 bg-primary/5 -top-8 -right-8 opacity-0 group-hover:opacity-100 transition-opacity" duration={5} />
-                <motion.div className="text-3xl mb-2" animate={{ y: [0, -4, 0] }} transition={{ duration: 2 + index * 0.5, repeat: Infinity }}>{stat.emoji}</motion.div>
+                <motion.div
+  className="mb-3 flex justify-center"
+  animate={{ y: [0, -4, 0] }}
+  transition={{ duration: 2 + index * 0.5, repeat: Infinity }}
+>
+  <stat.icon size={34} strokeWidth={2.3} className="text-primary" />
+</motion.div>
                 <div className="text-3xl md:text-4xl font-extrabold text-primary font-heading mb-1">
                   <AnimatedCounter end={stat.number} suffix={stat.suffix} />
                 </div>
@@ -443,31 +455,31 @@ const Home = () => {
               className="flex flex-col gap-6"
             >
               {[
-                {
-                  icon: '🤖',
-                  title: 'AI-Powered Consultations',
-                  desc: 'D3 uses advanced natural language processing to understand your dental concerns and provide instant, accurate guidance.',
-                  color: 'from-emerald-50 to-white',
-                },
-                {
-                  icon: '📅',
-                  title: 'Instant Appointment Booking',
-                  desc: 'Skip the phone queue. D3 checks real-time availability and books your slot in seconds — day or night.',
-                  color: 'from-green-50 to-white',
-                },
-                {
-                  icon: '🔬',
-                  title: 'Smart Diagnostics Assistant',
-                  desc: 'Describe your symptoms and D3 will help identify potential issues and recommend the right specialist for you.',
-                  color: 'from-teal-50 to-white',
-                },
-                {
-                  icon: '💬',
-                  title: '24/7 Always Available',
-                  desc: 'Whether it\'s 3 AM or a holiday, D3 is always online — ready to help, reassure, and guide you.',
-                  color: 'from-emerald-50 to-white',
-                },
-              ].map((item, i) => (
+  {
+    icon: Bot,
+    title: "AI-Powered Consultations",
+    desc: "D3 uses advanced natural language processing to understand your dental concerns and provide instant, accurate guidance.",
+    color: "from-emerald-50 to-white",
+  },
+  {
+    icon: CalendarDays,
+    title: "Instant Appointment Booking",
+    desc: "Skip the phone queue. D3 checks real-time availability and books your slot in seconds — day or night.",
+    color: "from-green-50 to-white",
+  },
+  {
+    icon: Microscope,
+    title: "Smart Diagnostics Assistant",
+    desc: "Describe your symptoms and D3 will help identify potential issues and recommend the right specialist for you.",
+    color: "from-teal-50 to-white",
+  },
+  {
+    icon: MessageCircle,
+    title: "24/7 Always Available",
+    desc: "Whether it's 3 AM or a holiday, D3 is always online — ready to help, reassure, and guide you.",
+    color: "from-emerald-50 to-white",
+  },
+].map((item, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, y: 20 }}
@@ -477,9 +489,12 @@ const Home = () => {
                   whileHover={{ x: 6, boxShadow: '0 12px 30px rgba(76,175,80,0.12)' }}
                   className={`flex items-start gap-4 bg-gradient-to-r ${item.color} border border-green-100 rounded-2xl p-5 shadow-sm transition-all duration-300 group`}
                 >
-                  <div className="flex-shrink-0 w-12 h-12 bg-white rounded-xl shadow-sm border border-green-100 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300">
-                    {item.icon}
-                  </div>
+              <motion.div
+  whileHover={{ rotate: [0, -10, 10, 0], scale: 1.15 }}
+  transition={{ duration: 0.5 }}
+>
+  <item.icon size={26} strokeWidth={2.2} className="text-primary" />
+</motion.div>
                   <div>
                     <h3 className="font-heading font-bold text-secondary text-base mb-1 group-hover:text-primary transition-colors">
                       {item.title}
@@ -707,38 +722,83 @@ const Home = () => {
           50% { background-position: 200% center; }
           100% { background-position: 0% center; }
         }
-        .tooth-exploded-container {
-          position: relative; width: 100%; height: 400px;
-          transform-style: preserve-3d;
-          display: flex; align-items: center; justify-content: center;
-        }
-        .tooth-layer { position: absolute; display: flex; align-items: center; justify-content: center; transform-style: preserve-3d; }
-        .tooth-layer .layer-inner { border-radius: 12px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3); transition: all 0.3s ease; }
-        .crown .layer-inner { width: 100px; height: 80px; border-radius: 50% 50% 20% 20%; }
-        .enamel .layer-inner { width: 95px; height: 70px; border-radius: 45% 45% 20% 20%; }
-        .dentin .layer-inner { width: 85px; height: 90px; border-radius: 40% 40% 15% 15%; }
-        .pulp .layer-inner { width: 50px; height: 50px; border-radius: 50%; }
-        .root-canal .layer-inner { width: 45px; height: 100px; border-radius: 10% 10% 30% 30%; }
-        .implant .layer-inner { width: 40px; height: 60px; border-radius: 8px 8px 40% 40%; }
-        .layer-label {
-          position: absolute; right: -85px;
-          background: rgba(76,175,80,0.95); color: white;
-          padding: 4px 12px; border-radius: 20px;
-          font-size: 12px; font-weight: 600; white-space: nowrap;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-          opacity: 0; transition: opacity 0.3s ease;
-          pointer-events: none;
-        }
-        .tooth-layer:hover .layer-label { opacity: 1; }
-        @media (max-width: 768px) {
-          .tooth-exploded-container { height: 350px; }
-          .crown .layer-inner { width: 80px; height: 65px; }
-          .enamel .layer-inner { width: 75px; height: 55px; }
-          .dentin .layer-inner { width: 70px; height: 75px; }
-          .pulp .layer-inner { width: 40px; height: 40px; }
-          .root-canal .layer-inner { width: 35px; height: 80px; }
-          .implant .layer-inner { width: 32px; height: 50px; }
-          .layer-label { right: -70px; font-size: 10px; }
+       .tooth-assembly-container{
+position:relative;
+width:200px;
+height:380px;
+display:flex;
+align-items:center;
+justify-content:center;
+transform-style:preserve-3d;
+}
+
+.tooth-part{
+position:absolute;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.tooth-inner{
+border-radius:40px;
+box-shadow:
+0 10px 25px rgba(0,0,0,0.15),
+inset 0 4px 8px rgba(255,255,255,0.8);
+border:1px solid rgba(255,255,255,0.6);
+}
+
+/* crown */
+.tooth-crown .tooth-inner{
+width:120px;
+height:90px;
+border-radius:60px 60px 30px 30px;
+}
+
+/* enamel */
+.tooth-enamel .tooth-inner{
+width:110px;
+height:70px;
+border-radius:50px 50px 25px 25px;
+}
+
+/* dentin */
+.tooth-dentin .tooth-inner{
+width:95px;
+height:95px;
+border-radius:40px;
+}
+
+/* pulp */
+.tooth-pulp .tooth-inner{
+width:60px;
+height:60px;
+border-radius:50%;
+}
+
+/* root */
+.tooth-root .tooth-inner{
+width:70px;
+height:150px;
+border-radius:30px;
+}
+
+/* label */
+.tooth-label{
+position:absolute;
+right:-95px;
+background:#4caf50;
+color:white;
+padding:4px 12px;
+border-radius:20px;
+font-size:12px;
+font-weight:600;
+opacity:0;
+transition:0.3s;
+}
+
+.tooth-part:hover .tooth-label{
+opacity:1;
+}
         }
       `}</style>
     </div>

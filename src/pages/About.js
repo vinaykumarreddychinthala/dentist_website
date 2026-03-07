@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { MapPin, Phone, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useState, useRef } from "react";
+import { Handshake, Microscope, HeartHandshake, Leaf } from "lucide-react";
 
 const About = () => {
   const timeline = [
@@ -29,28 +30,32 @@ const handleTimeUpdate = () => {
   }
 };
 
-  const coreValues = [
-    {
-      icon: '🤝',
-      title: 'Patient-Centered Care',
-      description: 'Every treatment plan is tailored to your unique needs, not a one-size-fits-all protocol.',
-    },
-    {
-      icon: '🔬',
-      title: 'Clinical Excellence',
-      description: 'We invest in advanced diagnostics and continuous training to deliver best-in-class outcomes.',
-    },
-    {
-      icon: '💚',
-      title: 'Community Commitment',
-      description: 'Free dental days, school outreach, and partnerships with local health organizations.',
-    },
-    {
-      icon: '🌱',
-      title: 'Sustainable Practice',
-      description: 'Digital records, reduced radiation X-rays, and eco-conscious materials across all procedures.',
-    },
-  ];
+ const coreValues = [
+  {
+    icon: Handshake,
+    title: "Patient-Centered Care",
+    description:
+      "Every treatment plan is tailored to your unique needs, not a one-size-fits-all protocol.",
+  },
+  {
+    icon: Microscope,
+    title: "Clinical Excellence",
+    description:
+      "We invest in advanced diagnostics and continuous training to deliver best-in-class outcomes.",
+  },
+  {
+    icon: HeartHandshake,
+    title: "Community Commitment",
+    description:
+      "Free dental days, school outreach, and partnerships with local health organizations.",
+  },
+  {
+    icon: Leaf,
+    title: "Sustainable Practice",
+    description:
+      "Digital records, reduced radiation X-rays, and eco-conscious materials across all procedures.",
+  },
+];
 
   return (
     <div className="page-transition">
@@ -400,7 +405,9 @@ const handleTimeUpdate = () => {
                 whileHover={{ scale: 1.05, y: -10 }}
                 className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all border border-green-50 hover:border-primary"
               >
-                <div className="text-5xl mb-4">{value.icon}</div>
+                <div className="mb-4 flex justify-center">
+  <value.icon size={42} strokeWidth={2.2} className="text-primary" />
+</div>
                 <h3 className="font-heading text-xl font-bold text-secondary mb-3">{value.title}</h3>
                 <p className="text-text-light leading-relaxed">{value.description}</p>
               </motion.div>
