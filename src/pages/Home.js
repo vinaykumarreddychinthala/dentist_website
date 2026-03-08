@@ -13,7 +13,6 @@ import {
   Users,
   FileText
 } from "lucide-react";
-
 // ===== ANIMATED COUNTER =====
 const AnimatedCounter = ({ end, duration = 2, suffix = '' }) => {
   const [count, setCount] = useState(0);
@@ -74,6 +73,19 @@ const StarRow = ({ count = 5 }) => (
 );
 
 const Home = () => {
+  const videoRef = useRef(null);
+
+const handleTimeUpdate = () => {
+  const video = videoRef.current;
+
+  if (!video) return;
+
+  const duration = video.duration;
+
+  if (video.currentTime >= duration - 3.5) {
+    video.currentTime = 0;
+  }
+};
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: heroRef });
@@ -236,75 +248,28 @@ const Home = () => {
               <motion.div animate={{ rotate: 360 }} transition={{ duration: 30, repeat: Infinity, ease: 'linear' }} className="absolute w-80 h-80 rounded-full border border-dashed border-primary/20" />
               <motion.div animate={{ rotate: -360 }} transition={{ duration: 20, repeat: Infinity, ease: 'linear' }} className="absolute w-60 h-60 rounded-full border border-primary/10" style={{ borderStyle: 'dotted' }} />
 
-              <div className="relative w-full h-full max-w-md mx-auto" style={{ perspective: '1000px' }}>
+              <div className="relative w-full h-full max-w-md mx-auto overflow-hidden flex items-center justify-center" style={{ perspective: '1000px' }}>
                 <motion.div className="absolute inset-0 rounded-3xl" style={{ margin: '20px', background: 'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(232,245,233,0.7) 100%)', backdropFilter: 'blur(20px)', boxShadow: '0 30px 80px rgba(76,175,80,0.15), inset 0 1px 0 rgba(255,255,255,0.8)' }} />
                 {['top-8 left-8', 'top-8 right-8', 'bottom-8 left-8', 'bottom-8 right-8'].map((pos, i) => (
                   <motion.div key={i} className={`absolute ${pos} w-3 h-3 rounded-full bg-primary/30`} animate={{ scale: [1, 1.5, 1], opacity: [0.3, 0.7, 0.3] }} transition={{ duration: 2, repeat: Infinity, delay: i * 0.5 }} />
                 ))}
-                <div className="relative w-full h-full flex items-center justify-center p-8">
-       <div className="tooth-assembly-container">
+     <div className="relative w-full h-full flex items-center justify-center p-8">
+  <div className="w-[360px] h-[360px] flex items-center justify-center overflow-hidden rounded-2xl">
 
-{[
-  {
-    cls: "tooth-crown",
-    label: "Crown",
-    y: -70,
-    color: "linear-gradient(180deg,#ffffff,#f1f5f9)"
-  },
-  {
-    cls: "tooth-enamel",
-    label: "Enamel",
-    y: -40,
-    color: "linear-gradient(180deg,#f8fafc,#e2e8f0)"
-  },
-  {
-    cls: "tooth-dentin",
-    label: "Dentin",
-    y: -10,
-    color: "linear-gradient(180deg,#fef3c7,#fde68a)"
-  },
-  {
-    cls: "tooth-pulp",
-    label: "Pulp",
-    y: 15,
-    color: "linear-gradient(180deg,#fda4af,#fb7185)"
-  },
-  {
-    cls: "tooth-root",
-    label: "Root",
-    y: 60,
-    color: "linear-gradient(180deg,#e2e8f0,#cbd5f5)"
-  }
-].map((part,i)=>(
-  <motion.div
-    key={i}
-    animate={{
-      y:[0,part.y,0],
-      rotateY:[0,8,-8,0]
-    }}
-    transition={{
-      duration:7,
-      repeat:Infinity,
-      ease:"easeInOut",
-      delay:i*0.2
-    }}
-    className={`tooth-part ${part.cls}`}
-  >
-
-    <div
-      className="tooth-inner"
-      style={{background:part.color}}
-    />
-
-    <span className="tooth-label">
-      {part.label}
-    </span>
-
-  </motion.div>
-))}
+  <video
+  ref={videoRef}
+  autoPlay
+  muted
+  loop={false}
+  playsInline
+  onTimeUpdate={handleTimeUpdate}
+  className="w-full h-full object-cover"
+>
+  <source src="/dental.mp4" type="video/mp4" />
+</video>
 
 </div>
-                </div>
+</div>
               </div>
 
 {[
@@ -721,85 +686,9 @@ const Home = () => {
           0% { background-position: 0% center; }
           50% { background-position: 200% center; }
           100% { background-position: 0% center; }
-        }
-       .tooth-assembly-container{
-position:relative;
-width:200px;
-height:380px;
-display:flex;
-align-items:center;
-justify-content:center;
-transform-style:preserve-3d;
-}
-
-.tooth-part{
-position:absolute;
-display:flex;
-justify-content:center;
-align-items:center;
-}
-
-.tooth-inner{
-border-radius:40px;
-box-shadow:
-0 10px 25px rgba(0,0,0,0.15),
-inset 0 4px 8px rgba(255,255,255,0.8);
-border:1px solid rgba(255,255,255,0.6);
-}
-
-/* crown */
-.tooth-crown .tooth-inner{
-width:120px;
-height:90px;
-border-radius:60px 60px 30px 30px;
-}
-
-/* enamel */
-.tooth-enamel .tooth-inner{
-width:110px;
-height:70px;
-border-radius:50px 50px 25px 25px;
-}
-
-/* dentin */
-.tooth-dentin .tooth-inner{
-width:95px;
-height:95px;
-border-radius:40px;
-}
-
-/* pulp */
-.tooth-pulp .tooth-inner{
-width:60px;
-height:60px;
-border-radius:50%;
-}
-
-/* root */
-.tooth-root .tooth-inner{
-width:70px;
-height:150px;
-border-radius:30px;
-}
-
-/* label */
-.tooth-label{
-position:absolute;
-right:-95px;
-background:#4caf50;
-color:white;
-padding:4px 12px;
-border-radius:20px;
-font-size:12px;
-font-weight:600;
-opacity:0;
-transition:0.3s;
-}
-
-.tooth-part:hover .tooth-label{
-opacity:1;
-}
-        }
+      }
+       
+        
       `}</style>
     </div>
   );
