@@ -366,79 +366,95 @@ const Services = () => {
           </h2>
         </motion.div>
 
-        <div className="container mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="container mx-auto max-w-7xl">
+          <div className="flex flex-col md:flex-row gap-4 h-[400px]">
             {services.map((service, index) => {
               const IconComponent = service.icon;
               return (
-                <TiltCard key={index}>
+                <motion.div
+                  key={index}
+                  layout
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    opacity: { duration: 0.7, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] },
+                    y: { duration: 0.7, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] },
+                    layout: { type: "spring", stiffness: 300, damping: 30 }
+                  }}
+                  onHoverStart={() => setHoveredService(index)}
+                  onHoverEnd={() => setHoveredService(null)}
+                  className={`relative bg-white rounded-3xl shadow-sm hover:shadow-2xl transition-shadow duration-500 border border-green-50 group overflow-hidden cursor-pointer flex flex-col justify-end p-8`}
+                  style={{
+                    flex: hoveredService === index ? 4 : (hoveredService === null ? 1 : 0.5)
+                  }}
+                  data-testid={`service-card-${index}`}
+                >
+                  {/* Background gradient image or color layered under the content */}
                   <motion.div
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.12, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                    onHoverStart={() => setHoveredService(index)}
-                    onHoverEnd={() => setHoveredService(null)}
-                    className="relative bg-white p-8 rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-500 border border-green-50 hover:border-green-200 group overflow-hidden h-full"
-                    data-testid={`service-card-${index}`}
+                    className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-90 transition-opacity duration-500`}
+                  />
+
+                  {/* Icon */}
+                  <motion.div
+                    layout="position"
+                    className="relative bg-accent rounded-xl p-4 w-fit mb-auto group-hover:bg-white/20 transition-colors duration-300"
                   >
-                    {/* Animated background on hover */}
-                    <motion.div
-  initial={{ scale: 0 }}
-  animate={hoveredService === index ? { scale: 2.4 } : { scale: 0 }}
-  transition={{ duration: 0.6, ease: "easeOut" }}
-  className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-90`}
- />
-
-                    {/* Emoji floating top right */}
-                    <motion.div
-                      animate={{ y: [0, -8, 0], rotate: [0, 5, -5, 0] }}
-                      transition={{ duration: 3 + index * 0.5, repeat: Infinity, ease: 'easeInOut' }}
-                      className="absolute top-4 right-4 text-2xl opacity-30 group-hover:opacity-60 transition-opacity"
-                    >
-                      {service.emoji}
-                    </motion.div>
-
-                    {/* Icon */}
-                    <motion.div
-                      whileHover={{ rotate: [0, -10, 10, 0] }}
-                      transition={{ duration: 0.5 }}
-                      className="relative bg-accent rounded-xl p-4 w-fit mb-6 group-hover:bg-white/20 transition-colors duration-300 overflow-hidden"
-                    >
-                      <motion.div
-                        className="absolute inset-0 bg-primary opacity-0 group-hover:opacity-100"
-                        transition={{ duration: 0.3 }}
-                      />
-                      <IconComponent
-                        className="text-primary group-hover:text-white transition-colors duration-300 relative z-10"
-                        size={32}
-                      />
-                    </motion.div>
-
-                    {/* Number */}
-                    <div className="absolute bottom-6 right-6 font-heading text-5xl font-black text-primary/20 group-hover:text-white/20 transition-colors duration-300 leading-none select-none z-10">
-                      {String(index + 1).padStart(2, '0')}
-                    </div>
-
-                   <h3 className="font-heading text-xl md:text-2xl font-semibold text-secondary mb-4 relative z-10 group-hover:text-white transition-colors duration-300">
-                      {service.title}
-                    </h3>
-                    <p className="text-text-light leading-relaxed relative z-10 group-hover:text-white transition-colors duration-300">
-                      {service.description}
-                    </p>
-
-                    {/* Bottom accent line */}
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileHover={{ width: '100%' }}
-                      transition={{ duration: 0.4 }}
-                      className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r ${service.color} rounded-b-2xl`}
+                    <IconComponent
+                      className="text-primary group-hover:text-white transition-colors duration-300 relative z-10"
+                      size={24}
                     />
                   </motion.div>
-                </TiltCard>
+
+                  {/* Bottom Content Area */}
+                  <motion.div layout="position" className="relative z-10 mt-4">
+                    <motion.h3
+                      layout="position"
+                      className="font-heading text-xl md:text-2xl font-semibold text-secondary mb-2 group-hover:text-white transition-colors duration-300 whitespace-nowrap"
+                    >
+                      {service.title}
+                    </motion.h3>
+
+                    <AnimatePresence>
+                      {hoveredService === index && (
+                        <motion.p
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="text-white/90 leading-relaxed text-sm md:text-base pr-4"
+                        >
+                          {service.description}
+                        </motion.p>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+
+                  {/* Decorative Emoji on Hover */}
+                  <AnimatePresence>
+                    {hoveredService === index && (
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0, rotate: -45 }}
+                        animate={{ opacity: 0.6, scale: 1, rotate: 0 }}
+                        exit={{ opacity: 0, scale: 0, rotate: 45 }}
+                        transition={{ duration: 0.4 }}
+                        className="absolute top-6 right-6 text-4xl"
+                      >
+                        {service.emoji}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  {/* Number Watermark */}
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-heading text-[120px] font-black text-primary/5 group-hover:text-white/5 transition-colors duration-500 leading-none select-none z-0 pointer-events-none">
+                    {String(index + 1).padStart(2, '0')}
+                  </div>
+                </motion.div>
               );
             })}
+          </div>
 
+          <div className="mt-8">
             {/* CTA card */}
             <motion.div
               initial={{ opacity: 0, y: 50 }}
