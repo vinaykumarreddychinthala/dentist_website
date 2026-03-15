@@ -89,8 +89,13 @@ const handleTimeUpdate = () => {
 };
   const [[page, direction], setPage] = useState([0, 0]);
   const heroRef = useRef(null);
-  const { scrollYProgress } = useScroll({ target: heroRef });
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end end"] });
   const heroY = useTransform(scrollYProgress, [0, 1], [0, -60]);
+
+  // New text animations
+  const textOpacity = useTransform(scrollYProgress, [0.3, 0.5, 0.8, 1], [0, 1, 1, 0]);
+  const textScale = useTransform(scrollYProgress, [0.3, 0.9], [0.8, 1.2]);
+  const backdropOpacity = useTransform(scrollYProgress, [0.3, 0.5], [0, 1]);
 
   const testimonials = [
     { name: 'Sarah Johnson', image: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=400', instagramLink: 'https://www.instagram.com/reel/', review: 'Best dental experience I\'ve ever had. Completely painless and the team was so warm!' },
@@ -181,7 +186,7 @@ const handleTimeUpdate = () => {
   );
 
   return (
-    <div className="page-transition overflow-x-hidden relative">
+    <div className="page-transition overflow-clip relative bg-white">
       {/* Scroll Progress Line (Lava Dental style) */}
       <motion.div
         className="fixed top-0 left-0 w-1 bg-gradient-to-b from-primary to-emerald-400 z-50 origin-top"
@@ -189,7 +194,8 @@ const handleTimeUpdate = () => {
       />
 
       {/* ===== HERO SECTION ===== */}
-      <section ref={heroRef} className="relative min-h-screen py-20 md:py-0 px-6 md:px-12 lg:px-24 bg-gradient-to-br from-accent via-white to-white overflow-hidden flex items-center">
+      <div ref={heroRef} className="h-[200vh] relative w-full z-0">
+      <section className="sticky top-0 h-[100dvh] w-full py-20 md:py-0 px-6 md:px-12 lg:px-24 bg-gradient-to-br from-accent via-white to-white overflow-hidden flex items-center">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_30%_40%,rgba(76,175,80,0.1),transparent)]" />
         <div className="absolute inset-0 opacity-40" style={{ backgroundImage: 'radial-gradient(circle, rgba(76,175,80,0.12) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
 
@@ -361,15 +367,33 @@ const handleTimeUpdate = () => {
           </motion.div>
         </motion.div>
 
-        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none z-10">
           <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-full h-16 text-white">
             <path d="M0,0V46.29c47.79,22,103.59,29.05,158,17C230,45,284,0,339,0s108,45,162,63.29c54,18.34,108,0,162-17.29C717,28,771,28,825,46.29c54,18.34,108,0,162-17.29C1041,11,1095,11,1149,28.29V0Z" fill="currentColor" />
           </svg>
         </div>
+
+        {/* NEW SCROLL TEXT OVERLAY */}
+        <motion.div 
+          className="absolute inset-0 z-50 flex items-center justify-center pointer-events-none"
+          style={{ 
+            backgroundColor: "rgba(255,255,255,0.7)", 
+            opacity: backdropOpacity,
+            backdropFilter: "blur(8px)" 
+          }}
+        >
+          <motion.h1 
+            style={{ scale: textScale, opacity: textOpacity }} 
+            className="text-[12vw] font-black text-primary text-center uppercase tracking-[0.02em] leading-[0.85]"
+          >
+            Your smile is<br/>our goal
+          </motion.h1>
+        </motion.div>
       </section>
+      </div>
 
       {/* ===== STATS SECTION ===== */}
-      <section className="py-16 px-6 md:px-12 lg:px-24 bg-white relative overflow-hidden">
+      <section className="py-16 px-6 md:px-12 lg:px-24 bg-white relative overflow-x-hidden overflow-y-auto sticky top-0 h-[100dvh] z-10 shadow-[0_-20px_50px_rgba(0,0,0,0.1)] rounded-t-[2.5rem]">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_50%_50%,rgba(76,175,80,0.04),transparent)]" />
         <div className="container mx-auto relative z-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -400,7 +424,8 @@ const handleTimeUpdate = () => {
       </section>
 
       {/* ===== AI ASSISTANT SECTION ===== */}
-      <section className="py-20 md:py-28 px-6 md:px-12 lg:px-24 bg-gradient-to-br from-[#f0fbf4] via-white to-[#edf8f2] relative overflow-hidden">
+      {false && (
+      <section className="py-20 md:py-28 px-6 md:px-12 lg:px-24 bg-gradient-to-br from-[#f0fbf4] via-white to-[#edf8f2] relative overflow-x-hidden overflow-y-auto sticky top-0 h-[100dvh] z-20 shadow-[0_-20px_50px_rgba(0,0,0,0.1)] rounded-t-[2.5rem]">
         {/* Decorative background elements */}
         <div className="absolute inset-0 opacity-30" style={{ backgroundImage: 'radial-gradient(circle, rgba(76,175,80,0.1) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
         <MorphBlob className="w-96 h-96 bg-emerald-100/40 -top-24 -left-24" duration={14} />
@@ -523,9 +548,10 @@ const handleTimeUpdate = () => {
           </div>
         </div>
       </section>
+      )}
 
       {/* ===== FEATURES SECTION ===== */}
-      <section className="py-16 md:py-28 px-6 md:px-12 lg:px-24 bg-accent relative overflow-hidden">
+      <section className="py-16 md:py-28 px-6 md:px-12 lg:px-24 bg-accent relative overflow-x-hidden overflow-y-auto sticky top-0 h-[100dvh] z-30 shadow-[0_-20px_50px_rgba(0,0,0,0.1)] rounded-t-[2.5rem]">
         <MorphBlob className="w-96 h-96 bg-primary/6 -top-20 -left-20" duration={11} />
         <MorphBlob className="w-72 h-72 bg-emerald-200/15 -bottom-16 -right-16" duration={9} delay={3} />
 
@@ -597,8 +623,8 @@ const handleTimeUpdate = () => {
       </section>
 
       {/* ===== TRANSFORMATIONS & TESTIMONIALS SECTION ===== */}
-      <section className="py-16 md:py-28 px-6 md:px-12 lg:px-24 bg-[#f8fbfa] relative overflow-hidden border-t border-green-50">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(76,175,80,0.03),transparent)]" />
+      <section className="py-16 md:py-28 px-6 md:px-12 lg:px-24 bg-[#f8fbfa] relative overflow-x-hidden overflow-y-auto border-t border-green-50 sticky top-0 h-[100dvh] z-40 shadow-[0_-20px_50px_rgba(0,0,0,0.1)] rounded-t-[2.5rem]">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(76,175,80,0.03),transparent)] pointer-events-none" />
 
         <div className="container mx-auto relative z-10">
           
@@ -773,7 +799,7 @@ const handleTimeUpdate = () => {
       </section>
 
       {/* ===== FINAL CTA BANNER ===== */}
-      <section className="py-16 md:py-20 px-6 md:px-12 lg:px-24 bg-accent relative overflow-hidden">
+      <section className="py-16 md:py-20 px-6 md:px-12 lg:px-24 bg-accent relative overflow-x-hidden overflow-y-auto sticky top-0 h-[100dvh] z-50 shadow-[0_-20px_50px_rgba(0,0,0,0.1)] rounded-t-[2.5rem] flex flex-col justify-center border-t border-green-50">
         <MorphBlob className="w-80 h-80 bg-primary/8 -top-20 -right-20" duration={9} />
         <div className="container mx-auto relative z-10">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center">

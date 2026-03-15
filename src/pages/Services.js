@@ -81,11 +81,11 @@ const Services = () => {
   const yParallax = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
   const services = [
-    { title: 'Dental Implants', description: 'Advanced tooth replacement solutions using state-of-the-art implant technology. Restore your smile with permanent, natural-looking teeth that function just like your own.', icon: Activity, emoji: '🦷', color: 'from-green-400 to-emerald-600' },
-    { title: 'Cosmetic Dentistry', description: 'Transform your smile with our comprehensive cosmetic treatments including teeth whitening, veneers, smile design, and aesthetic bonding for a confident, radiant smile.', icon: Smile, emoji: '✨', color: 'from-emerald-400 to-green-600' },
-    { title: 'Kids Dentistry', description: 'Specialized pediatric dental care in a friendly, comfortable environment. We make dental visits fun and stress-free for children, establishing healthy habits early.', icon: Baby, emoji: '🌟', color: 'from-teal-400 to-emerald-500' },
-    { title: 'Orthodontics', description: 'Straighten your teeth and correct bite issues with braces, aligners, and other orthodontic treatments. Achieve the perfect alignment for a beautiful, functional smile.', icon: Scissors, emoji: '💎', color: 'from-green-500 to-teal-600' },
-    { title: 'Painless Root Canal', description: 'Save infected teeth with our advanced, painless root canal procedures. Using modern techniques and anesthesia, we ensure a comfortable experience with excellent results.', icon: HeartPulse, emoji: '❤️', color: 'from-emerald-500 to-green-700' },
+    { title: 'Dental Implants', description: 'Advanced tooth replacement solutions using state-of-the-art implant technology. Restore your smile with permanent, natural-looking teeth that function just like your own.', image: '/dental_implants.png', color: 'from-green-400 to-emerald-600' },
+    { title: 'Cosmetic Dentistry', description: 'Transform your smile with our comprehensive cosmetic treatments including teeth whitening, veneers, smile design, and aesthetic bonding for a confident, radiant smile.', image: '/cosmetic_dentisry.png', color: 'from-emerald-400 to-green-600' },
+    { title: 'Kids Dentistry', description: 'Specialized pediatric dental care in a friendly, comfortable environment. We make dental visits fun and stress-free for children, establishing healthy habits early.', image: '/kids_dentistry.png', color: 'from-teal-400 to-emerald-500' },
+    { title: 'Orthodontics', description: 'Straighten your teeth and correct bite issues with braces, aligners, and other orthodontic treatments. Achieve the perfect alignment for a beautiful, functional smile.', image: '/orthodontics.png', color: 'from-green-500 to-teal-600' },
+    { title: 'Painless Root Canal', description: 'Save infected teeth with our advanced, painless root canal procedures. Using modern techniques and anesthesia, we ensure a comfortable experience with excellent results.', image: '/painless_rootcanal.png', color: 'from-emerald-500 to-green-700' },
   ];
 
   const faqs = [
@@ -369,7 +369,6 @@ const Services = () => {
         <div className="container mx-auto max-w-7xl">
           <div className="flex flex-col md:flex-row gap-4 h-[400px]">
             {services.map((service, index) => {
-              const IconComponent = service.icon;
               return (
                 <motion.div
                   key={index}
@@ -384,30 +383,29 @@ const Services = () => {
                   }}
                   onHoverStart={() => setHoveredService(index)}
                   onHoverEnd={() => setHoveredService(null)}
-                  className={`relative bg-white rounded-3xl shadow-sm hover:shadow-2xl transition-shadow duration-500 border border-green-50 group overflow-hidden cursor-pointer flex flex-col justify-end p-8`}
+                  className={`relative rounded-3xl shadow-sm hover:shadow-2xl transition-shadow duration-500 border border-green-50 group overflow-hidden cursor-pointer flex flex-col justify-end p-8`}
                   style={{
                     flex: hoveredService === index ? 4 : (hoveredService === null ? 1 : 0.5)
                   }}
                   data-testid={`service-card-${index}`}
                 >
-                  {/* Background gradient image or color layered under the content */}
-                  <motion.div
-                    className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-90 transition-opacity duration-500`}
-                  />
-
-                  {/* Icon */}
-                  <motion.div
-                    layout="position"
-                    className="relative bg-accent rounded-xl p-4 w-fit mb-auto group-hover:bg-white/20 transition-colors duration-300"
-                  >
-                    <IconComponent
-                      className="text-primary group-hover:text-white transition-colors duration-300 relative z-10"
-                      size={24}
-                    />
+                  {/* Background Image */}
+                  <motion.div className="absolute inset-0 z-0 overflow-hidden rounded-3xl">
+                     <img 
+                       src={service.image} 
+                       alt={service.title} 
+                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                     />
+                     <div className="absolute inset-0 bg-white/85 group-hover:bg-transparent transition-colors duration-500" />
                   </motion.div>
 
+                  {/* Background gradient layered under the text to improve readability on hover */}
+                  <motion.div
+                    className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-90 transition-opacity duration-500 z-0`}
+                  />
+
                   {/* Bottom Content Area */}
-                  <motion.div layout="position" className="relative z-10 mt-4">
+                  <motion.div layout="position" className="relative z-10 mt-auto">
                     <motion.h3
                       layout="position"
                       className="font-heading text-xl md:text-2xl font-semibold text-secondary mb-2 group-hover:text-white transition-colors duration-300 whitespace-nowrap"
@@ -429,26 +427,6 @@ const Services = () => {
                       )}
                     </AnimatePresence>
                   </motion.div>
-
-                  {/* Decorative Emoji on Hover */}
-                  <AnimatePresence>
-                    {hoveredService === index && (
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0, rotate: -45 }}
-                        animate={{ opacity: 0.6, scale: 1, rotate: 0 }}
-                        exit={{ opacity: 0, scale: 0, rotate: 45 }}
-                        transition={{ duration: 0.4 }}
-                        className="absolute top-6 right-6 text-4xl"
-                      >
-                        {service.emoji}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-
-                  {/* Number Watermark */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-heading text-[120px] font-black text-primary/5 group-hover:text-white/5 transition-colors duration-500 leading-none select-none z-0 pointer-events-none">
-                    {String(index + 1).padStart(2, '0')}
-                  </div>
                 </motion.div>
               );
             })}

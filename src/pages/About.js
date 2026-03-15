@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { MapPin, Phone, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useState, useRef } from "react";
@@ -13,6 +13,13 @@ const About = () => {
     { year: '2024', event: 'Reached 15,000 patients milestone. Launched free annual dental health day.' },
   ];
   const videoRef = useRef(null);
+  const horizontalScrollRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: horizontalScrollRef,
+  });
+  
+  // Maps 0-1 scroll progress to a horizontal translation
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-60%"]);
 
 const handleTimeUpdate = () => {
   const video = videoRef.current;
@@ -158,7 +165,82 @@ const handleTimeUpdate = () => {
     </motion.div>
   </div>
 </section>
-      <section className="py-16 md:py-24 px-6 md:px-12 lg:px-24">
+      {/* ===== MEET OUR EXPERTS ===== */}
+      <section className="relative w-full text-center py-10 bg-accent z-0">
+        <div className="container mx-auto">
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="font-heading text-4xl md:text-5xl font-bold text-secondary mb-4"
+          >
+            Meet Our Experts
+          </motion.h2>
+          <p className="text-text-light text-lg">Leading specialists dedicated to your perfect smile.</p>
+        </div>
+      </section>
+
+      {/* Wrapper for sticky scroll effect */}
+      <div className="h-[200vh] relative w-full z-10">
+        
+        {/* Doctor 1 Slide */}
+        <section className="sticky top-0 h-[100dvh] w-full bg-[#f8fbfa] overflow-hidden shadow-[0_-20px_50px_rgba(0,0,0,0.1)] rounded-t-[2.5rem] flex items-center justify-center z-10 border-t border-green-50">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_50%_50%,rgba(76,175,80,0.04),transparent)]" />
+          <div className="container mx-auto px-6 relative z-10 grid md:grid-cols-2 gap-12 items-center max-w-6xl">
+            <div className="relative h-[55vh] md:h-[70vh] w-full flex items-center justify-center bg-white rounded-3xl shadow-xl overflow-hidden group">
+              <img
+                src="/Maledoctor.png"
+                alt="Dr. Niral Dedhia"
+                className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-700"
+              />
+            </div>
+            <div className="text-left bg-white/50 backdrop-blur-sm p-8 rounded-3xl border border-white/50 shadow-sm">
+              <span className="text-primary font-bold tracking-widest text-sm uppercase mb-2 block">Lead Specialist</span>
+              <h3 className="font-heading text-4xl md:text-5xl font-bold text-secondary mb-4">
+                Dr. Niral Dedhia
+              </h3>
+              <p className="text-xl text-text-light mb-6 leading-relaxed">
+                B.D.S. (M.U.H.S.), P.G.D.C.R.
+              </p>
+              <p className="text-text-light leading-relaxed">
+                With over 15 years of experience in comprehensive dental care, Dr. Dedhia leads our clinical team with a focus on advanced diagnostics and patient-first treatment planning.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Doctor 2 Slide */}
+        <section className="sticky top-0 h-[100dvh] w-full bg-white overflow-hidden shadow-[0_-20px_50px_rgba(0,0,0,0.15)] rounded-t-[2.5rem] flex items-center justify-center z-20 border-t border-green-50">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_80%_20%,rgba(16,185,129,0.05),transparent)]" />
+          <div className="container mx-auto px-6 relative z-10 grid md:grid-cols-2 gap-12 items-center max-w-6xl">
+            {/* Image is now the first child to match slide 1 */}
+            <div className="relative h-[55vh] md:h-[70vh] w-full flex items-center justify-center bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl shadow-xl overflow-hidden group">
+              <img
+                src="/femaledoctor.png"
+                alt="Dr. Jesal Soneta"
+                className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-700"
+              />
+            </div>
+            {/* Text is second to match slide 1 */}
+            <div className="text-left bg-accent/50 backdrop-blur-sm p-8 rounded-3xl border border-green-50 shadow-sm">
+              <span className="text-emerald-500 font-bold tracking-widest text-sm uppercase mb-2 block">Aesthetic & Implant Specialist</span>
+              <h3 className="font-heading text-4xl md:text-5xl font-bold text-secondary mb-4">
+                Dr. Jesal Soneta
+              </h3>
+              <p className="text-xl text-text-light mb-6 leading-relaxed">
+                B.D.S., A.C.T (U.C.L.A. USA), Certified Implantologist
+              </p>
+              <p className="text-text-light leading-relaxed">
+                Dr. Soneta brings world-class expertise in cosmetic dentistry and implantology from UCLA, blending art and science to create flawless, natural-looking smiles.
+              </p>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      {/* ===== HUMBLE BEGINNINGS (Now Below Doctors) ===== */}
+      <section className="py-16 md:py-24 px-6 md:px-12 lg:px-24 bg-white relative z-30">
         <div className="container mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -196,28 +278,54 @@ const handleTimeUpdate = () => {
               </Link>
             </div>
           </motion.div>
+        </div>
+      </section>
 
-          <div className="mt-16">
-            <div className="relative">
-              <div className="absolute left-0 md:left-1/2 transform md:-translate-x-px h-full w-0.5 bg-primary"></div>
-              {timeline.map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className={`relative mb-12 ${index % 2 === 0 ? 'md:pr-1/2' : 'md:pl-1/2 md:ml-auto'} md:w-1/2`}
-                >
-                  <div className="bg-white p-6 rounded-xl shadow-lg border-2 border-primary ml-8 md:ml-0">
-                    <div className="absolute left-0 md:left-auto md:right-full md:mr-4 top-6 w-6 h-6 bg-primary rounded-full border-4 border-white shadow-lg transform -translate-x-3 md:translate-x-0"></div>
-                    <div className="text-2xl font-bold text-primary font-heading mb-2">{item.year}</div>
-                    <p className="text-text-light">{item.event}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+      {/* ===== HORIZONTAL JOURNEY TIMELINE ===== */}
+      <section ref={horizontalScrollRef} className="relative h-[300vh] bg-accent">
+        <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center pt-24 pb-16">
+          {/* Continuous curving background path */}
+          <div className="absolute inset-0 pointer-events-none z-0 flex items-center">
+            <svg className="w-full h-[300px] text-primary/15" preserveAspectRatio="none" viewBox="0 0 1000 100">
+               <path d="M0,50 Q250,100 500,50 T1000,50" fill="none" stroke="currentColor" strokeWidth="2" />
+            </svg>
           </div>
+
+          <motion.div style={{ x }} className="flex gap-16 md:gap-32 px-[10vw] relative z-10 w-max items-center">
+            {timeline.map((item, index) => (
+              <div 
+                key={index}
+                className={`relative w-[300px] md:w-[400px] flex-shrink-0 ${
+                  index % 2 === 0 ? '-mt-32' : 'mt-32'
+                }`}
+              >
+                {/* Visual node on the "route" line */}
+                <div className={`absolute left-1/2 -translate-x-1/2 ${
+                  index % 2 === 0 ? '-bottom-16' : '-top-16'
+                } w-4 h-4 bg-primary rounded-full shadow-[0_0_15px_rgba(76,175,80,0.5)]`} />
+                
+                {/* Connecting dotted line to the node */}
+                <div className={`absolute left-1/2 -translate-x-1/2 w-[2px] h-12 border-l-2 border-dashed border-primary/40 ${
+                  index % 2 === 0 ? '-bottom-12' : '-top-12'
+                }`} />
+
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                  className="bg-white p-8 rounded-3xl shadow-xl border border-green-50 hover:shadow-2xl transition-all hover:-translate-y-1"
+                >
+                  <span className="text-4xl font-heading font-black text-transparent bg-clip-text bg-gradient-to-br from-primary to-emerald-400 mb-4 block">
+                    {item.year}
+                  </span>
+                  <p className="text-text-light text-lg leading-relaxed">
+                    {item.event}
+                  </p>
+                </motion.div>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
@@ -282,84 +390,29 @@ const handleTimeUpdate = () => {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 px-6 md:px-12 lg:px-24">
+      <section className="py-16 px-6 md:px-12 lg:px-24">
         <div className="container mx-auto">
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="font-heading text-3xl md:text-4xl font-bold text-secondary text-center mb-12"
-          >
-            Meet Our Experts
-          </motion.h2>
-
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12">
-            {[
-          {
-             name: 'Dr. Niral Dedhia',
-             qualification: 'B.D.S. (M.U.H.S.), P.G.D.C.R.',
-             image: '/Maledoctor.png',
-          },
-          {
-             name: 'Dr. Jesal Soneta',
-             qualification: 'B.D.S. (M.U.H.S.), A.C.T Esthetics & Restorative Dentistry (U.C.L.A. USA), Certified Implantologist (Manipal University)',
-             image: '/femaledoctor.png',
-          },
-            ].map((doctor, index) => (
-<motion.div
-  key={index}
-  initial={{ opacity: 0, y: 30 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true }}
-  transition={{ delay: index * 0.1 }}
-  className="bg-white overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all border border-gray-100 group"
-  data-testid={`doctor-card-${index}`}
->
-  {/* Image Section */}
-  <div className="relative h-80 flex items-center justify-center bg-gray-50 overflow-hidden">
-    <img
-      src={doctor.image}
-      alt={doctor.name}
-      className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-500"
-    />
-  </div>
-
-  {/* Content Section */}
-  <div className="p-6 text-center">
-    <h3 className="font-heading text-2xl font-bold text-secondary mb-3 group-hover:text-primary transition-colors">
-      {doctor.name}
-    </h3>
-    <p className="text-text-light leading-relaxed">
-      {doctor.qualification}
-    </p>
-  </div>
-</motion.div>
-            ))}
-          </div>
-
          <motion.div
-  initial={{ opacity: 0, scale: 0.95 }}
-  whileInView={{ opacity: 1, scale: 1 }}
-  viewport={{ once: true }}
-  transition={{ duration: 1 }}
-  className="relative max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-2xl my-16"
->
-
-  <video
-    ref={videoRef}
-    autoPlay
-    muted
-    playsInline
-    onLoadedMetadata={() => {
-      videoRef.current.currentTime = 30;
-    }}
-    onTimeUpdate={handleTimeUpdate}
-    className="w-full h-full object-cover"
-  >
-    <source src="/dentalweb.mp4" type="video/mp4" />
-  </video>
-
-</motion.div>
+           initial={{ opacity: 0, scale: 0.95 }}
+           whileInView={{ opacity: 1, scale: 1 }}
+           viewport={{ once: true }}
+           transition={{ duration: 1 }}
+           className="relative max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-2xl my-16"
+         >
+           <video
+             ref={videoRef}
+             autoPlay
+             muted
+             playsInline
+             onLoadedMetadata={() => {
+               videoRef.current.currentTime = 30;
+             }}
+             onTimeUpdate={handleTimeUpdate}
+             className="w-full h-full object-cover"
+           >
+             <source src="/dentalweb.mp4" type="video/mp4" />
+           </video>
+         </motion.div>
         </div>
       </section>
 
