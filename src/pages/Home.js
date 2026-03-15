@@ -3,6 +3,7 @@ import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, Star, CheckCircle, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import DentalRobotAssistant from '../components/DentalRobotAssistant';
+import BeforeAfterSlider from '../components/BeforeAfterSlider';
 import { Smile,Bot,CalendarDays,Microscope,MessageCircle,Activity,Baby,Scissors,HeartPulse, Sparkles, ShieldCheck, Plane } from "lucide-react";
 import {
   Stethoscope,
@@ -595,11 +596,102 @@ const handleTimeUpdate = () => {
         </div>
       </section>
 
-      {/* ===== TESTIMONIALS SECTION ===== */}
-      <section className="py-16 md:py-28 px-6 md:px-12 lg:px-24 bg-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(76,175,80,0.05),transparent)]" />
+      {/* ===== TRANSFORMATIONS & TESTIMONIALS SECTION ===== */}
+      <section className="py-16 md:py-28 px-6 md:px-12 lg:px-24 bg-[#f8fbfa] relative overflow-hidden border-t border-green-50">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(76,175,80,0.03),transparent)]" />
 
         <div className="container mx-auto relative z-10">
+          
+          <RevealBlock className="text-center mb-16">
+            <span className="uppercase text-text-light font-bold text-xs tracking-[0.2em] mb-4 block">Testimonials</span>
+            <div className="overflow-hidden">
+              <motion.h2 
+                initial={{ y: "100%" }}
+                whileInView={{ y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                className="font-heading text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#112a46] tracking-tight mb-6 pb-2"
+              >
+                Real stories. Real smiles.
+              </motion.h2>
+            </div>
+            <p className="text-lg text-text-light max-w-2xl mx-auto">
+              Nothing speaks louder than the words of those who've experienced true, visible transformation firsthand.
+            </p>
+          </RevealBlock>
+
+          {/* === Before/After Slider Area === */}
+<RevealBlock delay={0.2} className="mb-24">
+
+{/* Tabs */}
+<div className="flex flex-wrap justify-center gap-6 md:gap-12 mb-12 text-sm font-semibold text-text-light border-b border-gray-200">
+  {['Aesthetic dentistry', 'Orthodontics', 'Implantology', 'Whitening'].map((tab, i) => (
+    <div
+      key={i}
+      className={`pb-4 cursor-pointer transition-colors ${
+        i === 0
+          ? 'text-primary border-b-2 border-primary'
+          : 'hover:text-primary'
+      }`}
+    >
+      {tab}
+    </div>
+  ))}
+</div>
+
+{/* Main Content */}
+<div className="grid lg:grid-cols-12 gap-10 items-center">
+
+  {/* Text Section */}
+  <div className="lg:col-span-4">
+    <h3 className="font-heading text-3xl font-bold text-[#112a46] mb-4">
+      Christina's smile, transformed
+    </h3>
+
+    <p className="text-text-light mb-8 leading-relaxed">
+      Christina felt self-conscious about the gaps and uneven shape of her
+      teeth. She wanted a natural, brighter smile that still felt like her
+      own — just more balanced, natural, and confidently beautiful.
+    </p>
+
+    <div className="mb-6">
+      <h4 className="font-heading font-bold text-[#112a46] text-lg mb-3">
+        What we did
+      </h4>
+
+      <ul className="space-y-3 text-sm text-text-light">
+        <li className="flex items-center gap-2">
+          <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+          Smile design planning with digital preview
+        </li>
+
+        <li className="flex items-center gap-2">
+          <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+          Minimal tooth preparation to preserve enamel
+        </li>
+
+        <li className="flex items-center gap-2">
+          <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+          Placement of ultra-thin porcelain veneers
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  {/* Slider Section */}
+  <div className="lg:col-span-8 flex justify-center">
+    <div className="bg-white p-3 md:p-5 rounded-[2rem] shadow-xl border border-gray-100 w-full max-w-xl">
+      <BeforeAfterSlider
+        beforeImage="/full smile before.jpeg"
+        afterImage="/full smile after.jpeg"
+      />
+    </div>
+  </div>
+
+</div>
+</RevealBlock>
+          
+          {/* === 3D Text Testimonials Carousel === */}
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
             <motion.span initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="inline-block bg-accent text-primary px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
               Real Stories
