@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence } from 'framer-motion';
 import { MapPin, Phone, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useState, useRef } from "react";
@@ -63,6 +63,53 @@ const handleTimeUpdate = () => {
       "Digital records, reduced radiation X-rays, and eco-conscious materials across all procedures.",
   },
 ];
+
+const experts = [
+  {
+    id: 1,
+    name: "Dr. Niral Dedhia",
+    role: "Lead Specialist",
+    roleColor: "text-primary",
+    qualifications: "B.D.S. (M.U.H.S.), P.G.D.C.R.",
+    description: "With over 15 years of experience in comprehensive dental care, Dr. Dedhia leads our clinical team with a focus on advanced diagnostics and patient-first treatment planning.",
+    image: "/Maledoctor.png",
+    bgClass: "bg-[#f8fbfa]",
+    cardBg: "bg-white",
+    textCardBg: "bg-white/50",
+    gradient: "bg-[radial-gradient(ellipse_60%_60%_at_50%_50%,rgba(76,175,80,0.04),transparent)]",
+    border: "border-white/50",
+  },
+  {
+    id: 2,
+    name: "Dr. Jesal Soneta",
+    role: "Aesthetic & Implant Specialist",
+    roleColor: "text-emerald-500",
+    qualifications: "B.D.S., A.C.T (U.C.L.A. USA), Certified Implantologist",
+    description: "Dr. Soneta brings world-class expertise in cosmetic dentistry and implantology from UCLA, blending art and science to create flawless, natural-looking smiles.",
+    image: "/femaledoctor.png",
+    bgClass: "bg-white",
+    cardBg: "bg-gradient-to-br from-green-50 to-emerald-50",
+    textCardBg: "bg-accent/50",
+    gradient: "bg-[radial-gradient(ellipse_80%_50%_at_80%_20%,rgba(16,185,129,0.05),transparent)]",
+    border: "border-green-50",
+  }
+];
+
+  const showcaseRef = useRef(null);
+  const { scrollYProgress: showcaseProgress } = useScroll({
+    target: showcaseRef,
+    offset: ["start start", "end end"]
+  });
+
+  const [activeExpert, setActiveExpert] = useState(0);
+
+  useMotionValueEvent(showcaseProgress, "change", (latest) => {
+    if (latest < 0.5) {
+      if (activeExpert !== 0) setActiveExpert(0);
+    } else {
+      if (activeExpert !== 1) setActiveExpert(1);
+    }
+  });
 
   return (
     <div className="page-transition">
@@ -181,59 +228,55 @@ const handleTimeUpdate = () => {
       </section>
 
       {/* Wrapper for sticky scroll effect */}
-      <div className="h-[200vh] relative w-full z-10">
+      <div ref={showcaseRef} className="h-[200vh] relative w-full z-10">
         
-        {/* Doctor 1 Slide */}
-        <section className="sticky top-0 h-[100dvh] w-full bg-[#f8fbfa] overflow-hidden shadow-[0_-20px_50px_rgba(0,0,0,0.1)] rounded-t-[2.5rem] flex items-center justify-center z-10 border-t border-green-50">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_50%_50%,rgba(76,175,80,0.04),transparent)]" />
+        {/* Dynamic Doctor Slide */}
+        <section className={`sticky top-0 h-[100dvh] w-full ${experts[activeExpert].bgClass} overflow-hidden shadow-[0_-20px_50px_rgba(0,0,0,0.1)] rounded-t-[2.5rem] flex items-center justify-center z-10 border-t border-green-50 transition-colors duration-700`}>
+          <div className={`absolute inset-0 ${experts[activeExpert].gradient} transition-opacity duration-700`} />
           <div className="container mx-auto px-6 relative z-10 grid md:grid-cols-2 gap-12 items-center max-w-6xl">
-            <div className="relative h-[55vh] md:h-[70vh] w-full flex items-center justify-center bg-white rounded-3xl shadow-xl overflow-hidden group">
-              <img
-                src="/Maledoctor.png"
-                alt="Dr. Niral Dedhia"
-                className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-700"
-              />
+            
+            {/* Image Container */}
+            <div className={`relative h-[55vh] md:h-[70vh] w-full flex items-center justify-center rounded-3xl shadow-xl overflow-hidden group transition-colors duration-700 ${experts[activeExpert].cardBg}`}>
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={activeExpert}
+                  src={experts[activeExpert].image}
+                  alt={experts[activeExpert].name}
+                  initial={{ y: "20%", opacity: 0 }}
+                  animate={{ y: "0%", opacity: 1 }}
+                  exit={{ y: "-20%", opacity: 0 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  className="absolute bottom-0 max-h-[90%] max-w-full object-contain group-hover:scale-105 transition-transform duration-700"
+                />
+              </AnimatePresence>
             </div>
-            <div className="text-left bg-white/50 backdrop-blur-sm p-8 rounded-3xl border border-white/50 shadow-sm">
-              <span className="text-primary font-bold tracking-widest text-sm uppercase mb-2 block">Lead Specialist</span>
-              <h3 className="font-heading text-4xl md:text-5xl font-bold text-secondary mb-4">
-                Dr. Niral Dedhia
-              </h3>
-              <p className="text-xl text-text-light mb-6 leading-relaxed">
-                B.D.S. (M.U.H.S.), P.G.D.C.R.
-              </p>
-              <p className="text-text-light leading-relaxed">
-                With over 15 years of experience in comprehensive dental care, Dr. Dedhia leads our clinical team with a focus on advanced diagnostics and patient-first treatment planning.
-              </p>
+            
+            {/* Text Container */}
+            <div className={`text-left ${experts[activeExpert].textCardBg} backdrop-blur-sm p-8 rounded-3xl border ${experts[activeExpert].border} shadow-sm transition-colors duration-700 h-[350px] flex flex-col justify-center`}>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeExpert}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                >
+                  <span className={`${experts[activeExpert].roleColor} font-bold tracking-widest text-sm uppercase mb-2 block`}>
+                    {experts[activeExpert].role}
+                  </span>
+                  <h3 className="font-heading text-4xl md:text-5xl font-bold text-secondary mb-4">
+                    {experts[activeExpert].name}
+                  </h3>
+                  <p className="text-xl text-text-light mb-6 leading-relaxed">
+                    {experts[activeExpert].qualifications}
+                  </p>
+                  <p className="text-text-light leading-relaxed">
+                    {experts[activeExpert].description}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
             </div>
-          </div>
-        </section>
 
-        {/* Doctor 2 Slide */}
-        <section className="sticky top-0 h-[100dvh] w-full bg-white overflow-hidden shadow-[0_-20px_50px_rgba(0,0,0,0.15)] rounded-t-[2.5rem] flex items-center justify-center z-20 border-t border-green-50">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_80%_20%,rgba(16,185,129,0.05),transparent)]" />
-          <div className="container mx-auto px-6 relative z-10 grid md:grid-cols-2 gap-12 items-center max-w-6xl">
-            {/* Image is now the first child to match slide 1 */}
-            <div className="relative h-[55vh] md:h-[70vh] w-full flex items-center justify-center bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl shadow-xl overflow-hidden group">
-              <img
-                src="/femaledoctor.png"
-                alt="Dr. Jesal Soneta"
-                className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-700"
-              />
-            </div>
-            {/* Text is second to match slide 1 */}
-            <div className="text-left bg-accent/50 backdrop-blur-sm p-8 rounded-3xl border border-green-50 shadow-sm">
-              <span className="text-emerald-500 font-bold tracking-widest text-sm uppercase mb-2 block">Aesthetic & Implant Specialist</span>
-              <h3 className="font-heading text-4xl md:text-5xl font-bold text-secondary mb-4">
-                Dr. Jesal Soneta
-              </h3>
-              <p className="text-xl text-text-light mb-6 leading-relaxed">
-                B.D.S., A.C.T (U.C.L.A. USA), Certified Implantologist
-              </p>
-              <p className="text-text-light leading-relaxed">
-                Dr. Soneta brings world-class expertise in cosmetic dentistry and implantology from UCLA, blending art and science to create flawless, natural-looking smiles.
-              </p>
-            </div>
           </div>
         </section>
 

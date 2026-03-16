@@ -45,11 +45,10 @@ const FancyInput = ({ label, id, testId, type = 'text', value, onChange, require
     <div className="relative group">
       <label
         htmlFor={id}
-        className={`absolute left-4 transition-all duration-300 pointer-events-none z-10 font-medium ${
-          focused || hasValue
+        className={`absolute left-4 transition-all duration-300 pointer-events-none z-10 font-medium ${focused || hasValue
             ? '-top-2.5 text-xs text-primary bg-white px-2 rounded-full'
             : 'top-3.5 text-sm text-gray-400'
-        }`}
+          }`}
       >
         {label}
       </label>
@@ -318,83 +317,77 @@ const Contact = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="max-w-2xl mx-auto"
+            className="max-w-4xl mx-auto"
           >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              className="text-center mb-8"
-            >
-              <span className="inline-block bg-white text-primary px-4 py-1.5 rounded-full text-sm font-semibold mb-4 shadow-sm">
-                Pick a Date
-              </span>
-              <div className="flex items-center justify-center gap-3">
-                <motion.div
-                  animate={{ rotate: [0, -15, 15, 0] }}
-                  transition={{ duration: 3, repeat: Infinity }}
-                >
-                  <CalendarIcon className="text-primary" size={28} />
-                </motion.div>
-                <h2 className="font-heading text-2xl md:text-3xl font-bold text-secondary">
-                  Select Your Preferred Date
-                </h2>
-              </div>
-            </motion.div>
+            <div className="text-center mb-10">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                className="inline-block bg-white text-primary px-4 py-1.5 rounded-full text-sm font-semibold mb-3 shadow-sm"
+              >
+                Find Us
+              </motion.div>
+              <h2 className="font-heading text-3xl md:text-4xl font-bold text-secondary">
+                We're Just Around
+                <span className="block bg-gradient-to-r from-primary to-emerald-500 bg-clip-text text-transparent">
+                  The Corner
+                </span>
+              </h2>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="bg-white rounded-3xl shadow-xl p-6 flex justify-center border border-green-50"
-            >
-              <style>{`
-                .rdp {
-                  --rdp-cell-size: 46px;
-                  --rdp-accent-color: #4CAF50;
-                  --rdp-background-color: #E8F5E9;
-                  font-family: inherit;
-                }
-                .rdp-day_selected { background-color: #4CAF50 !important; color: white !important; border-radius: 50%; }
-                .rdp-day_today { font-weight: bold; color: #2E7D32; }
-                .rdp-day:hover:not(.rdp-day_selected) { background-color: #e8f5e9; border-radius: 50%; }
-                .rdp-head_cell { color: #4CAF50; font-weight: 700; text-transform: uppercase; font-size: 11px; }
-                .rdp-caption_label { font-weight: 700; color: #1a2e1a; }
-                .rdp-nav_button { color: #4CAF50 !important; }
-              `}</style>
-              <DayPicker
-                mode="single"
-                selected={selectedDate}
-                onSelect={setSelectedDate}
-                disabled={{ before: new Date() }}
-                showOutsideDays
-                className="mx-auto"
-              />
-            </motion.div>
-
-            <AnimatePresence>
-              {selectedDate && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="mt-5 flex items-center justify-center gap-3 bg-white rounded-2xl shadow-md px-6 py-4 border border-green-50"
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* WhatsApp prominent button */}
+              <motion.div
+                whileHover={{ scale: 1.03, boxShadow: '0 15px 40px rgba(37,211,102,0.35)' }}
+                whileTap={{ scale: 0.97 }}
+                className="h-full"
+              >
+                <a
+                  href="https://wa.me/919004332292"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-testid="whatsapp-button"
+                  className="flex flex-col items-center justify-center gap-4 bg-gradient-to-br from-[#25D366] to-[#128C7E] text-white rounded-3xl p-8 shadow-xl h-full transition-all duration-300 text-center"
                 >
                   <motion.div
-                    animate={{ scale: [1, 1.2, 1] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                    className="w-3 h-3 rounded-full bg-primary"
-                  />
-                  <p className="text-text-light">
-                    Selected:{' '}
-                    <span className="font-bold text-primary text-lg">
-                      {format(selectedDate, 'MMMM dd, yyyy')}
-                    </span>
-                  </p>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                    animate={{ scale: [1, 1.15, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center text-3xl mb-2"
+                  >
+                    💬
+                  </motion.div>
+                  <div>
+                    <div className="font-bold text-xl mb-1">Chat on WhatsApp</div>
+                    <div className="text-white/80">+91 9004332292<br />Usually replies instantly</div>
+                  </div>
+                </a>
+              </motion.div>
+
+              {/* Google Map */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                className="rounded-3xl overflow-hidden shadow-xl border-4 border-green-50 h-full flex flex-col bg-white"
+              >
+                <div className="bg-gradient-to-r from-primary to-emerald-600 px-5 py-3 flex items-center gap-2">
+                  <MapPin className="text-white" size={18} />
+                  <span className="text-white font-semibold text-sm">Dentis3 Care — Andheri (E), Mumbai</span>
+                </div>
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.8276519857747!2d72.8584!3d19.1098!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDA2JzM1LjMiTiA3MsKwNTEnMzAuMiJF!5e0!3m2!1sen!2sin!4v1234567890"
+                  width="100%"
+                  className="flex-1"
+                  style={{ minHeight: '260px', border: 0, display: 'block' }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Dentis3 Care Location"
+                  data-testid="google-maps"
+                />
+              </motion.div>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -406,7 +399,7 @@ const Contact = () => {
         <div className="container mx-auto relative z-10">
           <div className="grid lg:grid-cols-2 gap-12">
 
-            {/* Left: Map + WhatsApp */}
+            {/* Left: Calendar */}
             <motion.div
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -419,72 +412,76 @@ const Contact = () => {
                 viewport={{ once: true }}
                 className="inline-block bg-accent text-primary px-4 py-1.5 rounded-full text-sm font-semibold mb-3"
               >
-                Find Us
+                Pick a Date
               </motion.div>
               <h2 className="font-heading text-3xl md:text-4xl font-bold text-secondary mb-8">
-                We're Just Around
+                Select Your
                 <span className="block bg-gradient-to-r from-primary to-emerald-500 bg-clip-text text-transparent">
-                  The Corner
+                  Preferred Date
                 </span>
               </h2>
 
-              {/* WhatsApp prominent button */}
-              <motion.div
-                whileHover={{ scale: 1.03, boxShadow: '0 15px 40px rgba(37,211,102,0.35)' }}
-                whileTap={{ scale: 0.97 }}
-                className="mb-8"
-              >
-                <a
-                  href="https://wa.me/919004332292"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-testid="whatsapp-button"
-                  className="flex items-center gap-4 bg-gradient-to-r from-[#25D366] to-[#128C7E] text-white rounded-2xl px-6 py-5 shadow-lg transition-all duration-300"
-                >
-                  <motion.div
-                    animate={{ scale: [1, 1.15, 1] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                    className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-2xl flex-shrink-0"
-                  >
-                    💬
-                  </motion.div>
-                  <div>
-                    <div className="font-bold text-lg">Chat on WhatsApp</div>
-                    <div className="text-white/80 text-sm">+91 9004332292 • Usually replies instantly</div>
-                  </div>
-                  <motion.span
-                    className="ml-auto text-xl"
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                  >
-                    →
-                  </motion.span>
-                </a>
-              </motion.div>
-
-              {/* Google Map */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                className="rounded-3xl overflow-hidden shadow-xl border-4 border-green-50"
+                transition={{ delay: 0.2 }}
+                className="bg-white rounded-3xl shadow-xl p-6 flex justify-center border border-green-50 mb-6"
               >
-                <div className="bg-gradient-to-r from-primary to-emerald-600 px-5 py-3 flex items-center gap-2">
-                  <MapPin className="text-white" size={18} />
-                  <span className="text-white font-semibold text-sm">Dentis3 Care — Andheri (E), Mumbai</span>
-                </div>
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.8276519857747!2d72.8584!3d19.1098!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDA2JzM1LjMiTiA3MsKwNTEnMzAuMiJF!5e0!3m2!1sen!2sin!4v1234567890"
-                  width="100%"
-                  height="300"
-                  style={{ border: 0, display: 'block' }}
-                  allowFullScreen=""
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Dentis3 Care Location"
-                  data-testid="google-maps"
+                <style>{`
+                  .rdp {
+                    --rdp-cell-size: 46px;
+                    --rdp-accent-color: #4CAF50;
+                    --rdp-background-color: #E8F5E9;
+                    font-family: inherit;
+                  }
+                  .rdp-day_selected { background-color: #4CAF50 !important; color: white !important; border-radius: 50%; }
+                  .rdp-day_today { font-weight: bold; color: #2E7D32; }
+                  .rdp-day:hover:not(.rdp-day_selected) { background-color: #e8f5e9; border-radius: 50%; }
+                  .rdp-head_cell { color: #4CAF50; font-weight: 700; text-transform: uppercase; font-size: 11px; }
+                  .rdp-caption_label { font-weight: 700; color: #1a2e1a; }
+                  .rdp-nav_button { color: #4CAF50 !important; }
+                `}</style>
+                <DayPicker
+                  mode="single"
+                  selected={selectedDate}
+                  onSelect={(date) => {
+                    setSelectedDate(date);
+                    if (date) {
+                      setAppointmentForm(prev => ({ ...prev, date: format(date, 'yyyy-MM-dd') }));
+                      setActiveTab('appointment');
+                    } else {
+                      setAppointmentForm(prev => ({ ...prev, date: '' }));
+                    }
+                  }}
+                  disabled={{ before: new Date() }}
+                  showOutsideDays
+                  className="mx-auto"
                 />
               </motion.div>
+
+              <AnimatePresence>
+                {selectedDate && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="flex items-center justify-center gap-3 bg-white rounded-2xl shadow-md px-6 py-4 border border-green-50"
+                  >
+                    <motion.div
+                      animate={{ scale: [1, 1.2, 1] }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                      className="w-3 h-3 rounded-full bg-primary"
+                    />
+                    <p className="text-text-light">
+                      Selected:{' '}
+                      <span className="font-bold text-primary text-lg">
+                        {format(selectedDate, 'MMMM dd, yyyy')}
+                      </span>
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
 
             {/* Right: Tabbed forms */}
