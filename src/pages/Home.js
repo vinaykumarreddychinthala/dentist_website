@@ -14,6 +14,8 @@ import {
   Users,
   FileText
 } from "lucide-react";
+import SpecialistsCarousel from '../components/SpecialistsCarousel';
+
 // ===== ANIMATED COUNTER =====
 const AnimatedCounter = ({ end, duration = 2, suffix = '' }) => {
   const [count, setCount] = useState(0);
@@ -36,9 +38,10 @@ const AnimatedCounter = ({ end, duration = 2, suffix = '' }) => {
 };
 
 // ===== MORPHING BLOB =====
-const MorphBlob = ({ className, duration = 8, delay = 0 }) => (
+const MorphBlob = ({ className, style, duration = 8, delay = 0 }) => (
   <motion.div
     className={`absolute rounded-full blur-3xl pointer-events-none ${className}`}
+    style={style}
     animate={{
       borderRadius: ['60% 40% 30% 70% / 60% 30% 70% 40%', '30% 60% 70% 40% / 50% 60% 30% 60%', '60% 40% 30% 70% / 60% 30% 70% 40%'],
       scale: [1, 1.12, 1],
@@ -186,7 +189,7 @@ const Home = () => {
   );
 
   return (
-    <div className="page-transition overflow-clip relative bg-white">
+    <div className="page-transition overflow-clip relative" style={{ background: 'linear-gradient(160deg, #0d4a2a 0%, #166534 20%, #1a7a40 40%, #0f5c32 60%, #166534 80%, #0d4a2a 100%)' }}>
       {/* Scroll Progress Line (Lava Dental style) */}
       <motion.div
         className="fixed top-0 left-0 w-1 bg-gradient-to-b from-primary to-emerald-400 z-50 origin-top"
@@ -195,16 +198,15 @@ const Home = () => {
 
       {/* ===== HERO SECTION ===== */}
       <div ref={heroRef} className="h-[200vh] relative w-full z-0">
-        <section className="sticky top-0 h-[100dvh] w-full py-20 md:py-0 px-6 md:px-12 lg:px-24 bg-gradient-to-br from-accent via-white to-white overflow-hidden flex items-center">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_30%_40%,rgba(76,175,80,0.1),transparent)]" />
-          <div className="absolute inset-0 opacity-40" style={{ backgroundImage: 'radial-gradient(circle, rgba(76,175,80,0.12) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+        <section className="sticky top-0 h-[100dvh] w-full py-20 md:py-0 px-6 md:px-12 lg:px-24 overflow-hidden flex items-center" style={{ background: 'linear-gradient(135deg, #0d4a2a 0%, #166534 25%, #1a7a40 40%, #ffffff 100%)' }}>
+          <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 80% 70% at 0% 0%, rgba(10,50,28,0.95) 0%, rgba(22,101,52,0.6) 40%, transparent 75%)' }} />
+          <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.25) 1px, transparent 1px)', backgroundSize: '36px 36px' }} />
 
-          <MorphBlob className="w-[700px] h-[700px] bg-primary/6 -top-60 -right-60" duration={12} />
-          <MorphBlob className="w-[400px] h-[400px] bg-emerald-200/15 bottom-0 -left-40" duration={9} delay={2} />
-          <MorphBlob className="w-[300px] h-[300px] bg-green-100/20 top-1/3 right-1/3" duration={10} delay={4} />
+          <MorphBlob className="w-[800px] h-[800px] -top-80 -left-60" duration={12} style={{ background: 'rgba(5,30,15,0.6)' }} />
+          <MorphBlob className="w-[500px] h-[500px] bottom-0 right-0" duration={9} delay={2} style={{ background: 'rgba(255,255,255,0.05)' }} />
 
-          {[...Array(14)].map((_, i) => (
-            <Particle key={i} delay={i * 0.4} x={Math.random() * 100} y={Math.random() * 100} size={3 + Math.random() * 8} />
+          {[...Array(10)].map((_, i) => (
+            <Particle key={i} delay={i * 0.4} x={Math.random() * 50} y={Math.random() * 100} size={3 + Math.random() * 6} />
           ))}
 
           <motion.div style={{ y: heroY }} className="container mx-auto relative z-10">
@@ -214,9 +216,9 @@ const Home = () => {
                   initial={{ opacity: 0, scale: 0.5, y: 50 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   transition={{ duration: 1, type: 'spring', delay: 0.2 }}
-                  className="inline-flex items-center gap-2 bg-white/90 backdrop-blur-sm border border-green-100 text-primary px-4 py-2 rounded-full text-sm font-semibold shadow-md mb-6"
+                  className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/30 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-md mb-6"
                 >
-                  <motion.div animate={{ scale: [1, 1.4, 1] }} transition={{ duration: 1.5, repeat: Infinity }} className="w-2 h-2 rounded-full bg-green-400" />
+                  <motion.div animate={{ scale: [1, 1.4, 1] }} transition={{ duration: 1.5, repeat: Infinity }} className="w-2 h-2 rounded-full bg-green-300" />
                   Mumbai's Most Trusted Dental Clinic
                 </motion.div>
 
@@ -225,7 +227,7 @@ const Home = () => {
                     initial={{ y: "100%" }}
                     animate={{ y: 0 }}
                     transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-                    className="font-heading text-5xl md:text-6xl lg:text-7xl font-extrabold text-secondary tracking-tight leading-none"
+                    className="font-heading text-5xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-none"
                     data-testid="hero-title"
                   >
                     Welcome to
@@ -238,7 +240,7 @@ const Home = () => {
                     transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
                   >
                     <span
-                      className="font-heading text-5xl md:text-6xl lg:text-7xl font-extrabold bg-gradient-to-r from-primary via-emerald-400 to-green-600 bg-clip-text text-transparent"
+                      className="font-heading text-5xl md:text-6xl lg:text-7xl font-extrabold bg-gradient-to-r from-green-300 via-emerald-200 to-white bg-clip-text text-transparent"
                       style={{ backgroundSize: '200% auto', animation: 'gradientShift 4s linear infinite' }}
                     >
                       Dentis3 Care
@@ -248,18 +250,18 @@ const Home = () => {
 
                 <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 1, ease: "easeOut" }} className="flex items-center gap-3 mb-6">
                   <StarRow />
-                  <span className="text-lg font-heading font-bold text-primary">Your Smile, Our Goal!</span>
+                  <span className="text-lg font-heading font-bold text-green-200">Your Smile, Our Goal!</span>
                 </motion.div>
 
-                <motion.p initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 1, ease: "easeOut" }} className="text-lg md:text-xl leading-relaxed text-text-light mb-8 max-w-lg">
+                <motion.p initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 1, ease: "easeOut" }} className="text-lg md:text-xl leading-relaxed text-green-100/90 mb-8 max-w-lg">
                   A healthy smile begins with healthy teeth. At Dentis3Care, you get all advanced dental services: Smile Design, Root Canal Treatment, Implants, Whitening.
                 </motion.p>
 
                 <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7, duration: 1, ease: "easeOut" }} className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
                   {['ADA Accredited', '15,000+ Happy Patients',].map((badge, i) => (
-                    <motion.div key={i} whileHover={{ scale: 1.05, y: -2 }} className="flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-green-50 rounded-xl px-3 py-2.5 shadow-sm">
-                      <CheckCircle className="text-primary flex-shrink-0" size={16} />
-                      <span className="text-xs font-semibold text-secondary">{badge}</span>
+                    <motion.div key={i} whileHover={{ scale: 1.05, y: -2 }} className="flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/25 rounded-xl px-3 py-2.5 shadow-sm">
+                      <CheckCircle className="text-green-300 flex-shrink-0" size={16} />
+                      <span className="text-xs font-semibold text-white">{badge}</span>
                     </motion.div>
                   ))}
                 </motion.div>
@@ -280,9 +282,9 @@ const Home = () => {
                   </Link>
                   <Link to="/services" data-testid="services-button">
                     <motion.div
-                      whileHover={{ scale: 1.05, backgroundColor: '#e8f5e9' }}
+                      whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.2)' }}
                       whileTap={{ scale: 0.97 }}
-                      className="inline-flex items-center gap-2 bg-white text-primary border-2 border-primary rounded-full px-8 py-4 font-semibold text-lg shadow-sm transition-all duration-300"
+                      className="inline-flex items-center gap-2 bg-white/10 text-white border-2 border-white/50 rounded-full px-8 py-4 font-semibold text-lg shadow-sm transition-all duration-300 backdrop-blur-sm"
                     >
                       Our Services
                     </motion.div>
@@ -361,17 +363,17 @@ const Home = () => {
             </div>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }} className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-primary/60">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }} className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/50">
             <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
               <ChevronDown size={20} />
             </motion.div>
           </motion.div>
 
-          <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none z-10">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-full h-16 text-white">
+          {/* <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none z-10">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-full h-16" style={{ color: '#0d4a2a' }}>
               <path d="M0,0V46.29c47.79,22,103.59,29.05,158,17C230,45,284,0,339,0s108,45,162,63.29c54,18.34,108,0,162-17.29C717,28,771,28,825,46.29c54,18.34,108,0,162-17.29C1041,11,1095,11,1149,28.29V0Z" fill="currentColor" />
             </svg>
-          </div>
+          </div> */}
 
           {/* NEW SCROLL TEXT OVERLAY */}
           <motion.div
@@ -393,8 +395,8 @@ const Home = () => {
       </div>
 
       {/* ===== STATS SECTION ===== */}
-      <section className="py-16 px-6 md:px-12 lg:px-24 bg-white relative overflow-x-hidden overflow-y-auto sticky top-0 h-[100dvh] z-10 shadow-[0_-20px_50px_rgba(0,0,0,0.1)] rounded-t-[2.5rem]">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_50%_50%,rgba(76,175,80,0.04),transparent)]" />
+      <section className="py-16 px-6 md:px-12 lg:px-24 relative overflow-x-hidden overflow-y-auto sticky top-0 h-[100dvh] z-10 shadow-[0_-20px_50px_rgba(0,0,0,0.3)] rounded-t-[2.5rem]" style={{ background: 'linear-gradient(160deg, #0d4a2a 0%, #166534 40%, #1a7a40 100%)' }}>
+        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.2) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
         <div className="container mx-auto relative z-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
@@ -403,20 +405,20 @@ const Home = () => {
               { number: 10, suffix: '+', label: 'Years Experience', icon: Sparkles },
               { number: 9, suffix: '', label: 'Expert Dentists', icon: Activity },
             ].map((stat, index) => (
-              <RevealBlock delay={index * 0.1} className="relative bg-white border border-green-50 rounded-2xl p-6 text-center shadow-sm overflow-hidden group transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(76,175,80,0.12)]">
-                <MorphBlob className="w-32 h-32 bg-primary/5 -top-8 -right-8 opacity-0 group-hover:opacity-100 transition-opacity" duration={5} />
+              <RevealBlock delay={index * 0.1} className="relative bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 text-center shadow-sm overflow-hidden group transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.3)] hover:bg-white/15">
+                <MorphBlob className="w-32 h-32 -top-8 -right-8 opacity-0 group-hover:opacity-100 transition-opacity" style={{ background: 'rgba(255,255,255,0.05)' }} duration={5} />
                 <motion.div
                   className="mb-3 flex justify-center"
                   animate={{ y: [0, -4, 0] }}
                   transition={{ duration: 2 + index * 0.5, repeat: Infinity }}
                 >
-                  <stat.icon size={34} strokeWidth={2.3} className="text-primary" />
+                  <stat.icon size={34} strokeWidth={2.3} className="text-green-300" />
                 </motion.div>
-                <div className="text-3xl md:text-4xl font-extrabold text-primary font-heading mb-1">
+                <div className="text-3xl md:text-4xl font-extrabold text-white font-heading mb-1">
                   <AnimatedCounter end={stat.number} suffix={stat.suffix} />
                 </div>
-                <div className="text-text-light font-semibold text-sm">{stat.label}</div>
-                <motion.div initial={{ width: 0 }} whileHover={{ width: '100%' }} transition={{ duration: 0.4 }} className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-primary to-emerald-400 rounded-b-2xl" />
+                <div className="text-green-200 font-semibold text-sm">{stat.label}</div>
+                <motion.div initial={{ width: 0 }} whileHover={{ width: '100%' }} transition={{ duration: 0.4 }} className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-green-300 to-emerald-400 rounded-b-2xl" />
               </RevealBlock>
             ))}
           </div>
@@ -551,13 +553,14 @@ const Home = () => {
       )}
 
       {/* ===== FEATURES SECTION ===== */}
-      <section className="py-10 md:py-16 px-6 md:px-12 lg:px-24 bg-accent relative overflow-x-hidden overflow-y-auto sticky top-0 h-[100dvh] z-30 shadow-[0_-20px_50px_rgba(0,0,0,0.1)] rounded-t-[2.5rem] flex flex-col justify-center">
+      <section className="py-10 md:py-16 px-6 md:px-12 lg:px-24 relative overflow-x-hidden overflow-y-auto sticky top-0 h-[100dvh] z-30 shadow-[0_-20px_50px_rgba(0,0,0,0.3)] rounded-t-[2.5rem] flex flex-col justify-center" style={{ background: 'linear-gradient(160deg, #0a3d22 0%, #166534 35%, #1a7a40 100%)' }}>
+        <div className="absolute inset-0 opacity-15" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.2) 1px, transparent 1px)', backgroundSize: '36px 36px' }} />
         {/* <MorphBlob className="w-96 h-96 bg-primary/6 -top-20 -left-20" duration={11} />
         <MorphBlob className="w-72 h-72 bg-emerald-200/15 -bottom-16 -right-16" duration={9} delay={3} /> */}
 
         <div className="container mx-auto relative z-10">
           <RevealBlock className="text-center mb-10">
-            <span className="inline-block bg-white text-primary px-4 py-1.5 rounded-full text-sm font-semibold mb-4 shadow-sm">
+            <span className="inline-block bg-white/15 text-white border border-white/30 px-4 py-1.5 rounded-full text-sm font-semibold mb-4 shadow-sm">
               Our Advantages
             </span>
             <div className="overflow-hidden">
@@ -566,10 +569,10 @@ const Home = () => {
                 whileInView={{ y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                className="font-heading text-3xl md:text-5xl font-bold text-secondary pb-2"
+                className="font-heading text-3xl md:text-5xl font-bold text-white pb-2"
               >
                 Why Choose
-                <span className="block bg-gradient-to-r from-primary to-emerald-500 bg-clip-text text-transparent">
+                <span className="block bg-gradient-to-r from-green-300 via-emerald-200 to-white bg-clip-text text-transparent">
                   Dentis3 Care?
                 </span>
               </motion.h2>
@@ -581,31 +584,20 @@ const Home = () => {
               <RevealBlock
                 key={index}
                 delay={index * 0.1}
-                className="bg-white p-6 rounded-2xl shadow-sm transition-all duration-300 border border-green-100 group relative overflow-hidden hover:-translate-y-2 hover:shadow-[0_25px_60px_rgba(76,175,80,0.2)] hover:scale-[1.03]"
+                className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl shadow-sm transition-all duration-300 border border-white/15 group relative overflow-hidden hover:-translate-y-2 hover:shadow-[0_25px_60px_rgba(0,0,0,0.3)] hover:scale-[1.03] hover:bg-white/15"
               >
-
-                {/* glow background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-green-50 to-transparent opacity-0 group-hover:opacity-100 transition duration-300" />
-
-                {/* icon */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition duration-300" />
                 <motion.div
-                  className="relative z-10 mb-4 w-14 h-14 flex items-center justify-center rounded-xl bg-primary/10 text-primary"
-                  whileHover={{
-                    scale: 1.3,
-                    rotate: [0, -10, 10, 0]
-                  }}
+                  className="relative z-10 mb-4 w-14 h-14 flex items-center justify-center rounded-xl bg-white/20 text-white"
+                  whileHover={{ scale: 1.3, rotate: [0, -10, 10, 0] }}
                   transition={{ duration: 0.6 }}
                 >
                   <feature.icon size={28} strokeWidth={2.3} />
                 </motion.div>
-
-                {/* title */}
-                <h3 className="font-heading text-lg font-bold text-secondary mb-2 relative z-10 group-hover:text-primary transition">
+                <h3 className="font-heading text-lg font-bold text-white mb-2 relative z-10 group-hover:text-green-200 transition">
                   {feature.title}
                 </h3>
-
-                {/* description */}
-                <p className="text-text-light text-sm leading-relaxed relative z-10">
+                <p className="text-green-100/80 text-sm leading-relaxed relative z-10">
                   {feature.description}
                 </p>
 
@@ -623,25 +615,25 @@ const Home = () => {
       </section>
 
       {/* ===== TRANSFORMATIONS & TESTIMONIALS SECTION ===== */}
-      <section className="py-10 md:py-6 px-6 md:px-12 lg:px-24 bg-[#f8fbfa] relative overflow-x-hidden overflow-y-auto border-t border-green-50 sticky top-0 h-[100dvh] z-40 shadow-[0_-20px_50px_rgba(0,0,0,0.1)] rounded-t-[2.5rem] flex flex-col justify-center">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(76,175,80,0.03),transparent)] pointer-events-none" />
+      <section className="py-10 md:py-6 px-6 md:px-12 lg:px-24 relative overflow-x-hidden overflow-y-auto border-t border-white/10 sticky top-0 h-[100dvh] z-40 shadow-[0_-20px_50px_rgba(0,0,0,0.3)] rounded-t-[2.5rem] flex flex-col justify-center" style={{ background: 'linear-gradient(160deg, #092e18 0%, #0f5c32 40%, #1a7a40 100%)' }}>
+        <div className="absolute inset-0 opacity-15" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
 
         <div className="container mx-auto relative z-10">
 
           <RevealBlock className="text-center mb-10">
-            <span className="uppercase text-text-light font-bold text-xs tracking-[0.2em] mb-4 block">Testimonials</span>
+            <span className="uppercase text-green-300 font-bold text-xs tracking-[0.2em] mb-4 block">Testimonials</span>
             <div className="overflow-hidden">
               <motion.h2
                 initial={{ y: "100%" }}
                 whileInView={{ y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                className="font-heading text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#112a46] tracking-tight mb-6 pb-2"
+                className="font-heading text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight mb-6 pb-2"
               >
                 Real stories. Real smiles.
               </motion.h2>
             </div>
-            <p className="text-lg text-text-light max-w-2xl mx-auto">
+            <p className="text-lg text-green-100/80 max-w-2xl mx-auto">
               Nothing speaks louder than the words of those who've experienced true, visible transformation firsthand.
             </p>
           </RevealBlock>
@@ -650,14 +642,14 @@ const Home = () => {
           <RevealBlock delay={0.2} className="mb-0">
 
             {/* Tabs */}
-            <div className="flex flex-wrap justify-center gap-6 md:gap-12 mb-12 text-sm font-semibold text-text-light border-b border-gray-200">
+            <div className="flex flex-wrap justify-center gap-6 md:gap-12 mb-12 text-sm font-semibold text-white border-b border-gray-200">
               {['Aesthetic dentistry', 'Orthodontics', 'Implantology', 'Whitening'].map((tab, i) => (
                 <div
                   key={i}
                   className={`pb-4 cursor-pointer transition-colors ${i === 0
-                    ? 'text-primary border-b-2 border-primary'
-                    : 'hover:text-primary'
-                    }`}
+                    ? 'text-white border-b-2 border-white'
+                    : 'text-white/60 border-b-2 border-transparent hover:text-white'
+                  }`}
                 >
                   {tab}
                 </div>
@@ -669,22 +661,22 @@ const Home = () => {
 
               {/* Text Section */}
               <div className="lg:col-span-4">
-                <h3 className="font-heading text-3xl font-bold text-[#112a46] mb-4">
+                <h3 className="font-heading text-3xl font-bold text-white mb-4">
                   Christina's smile, transformed
                 </h3>
 
-                <p className="text-text-light mb-8 leading-relaxed">
+                <p className="text-green-100/80 mb-8 leading-relaxed">
                   Christina felt self-conscious about the gaps and uneven shape of her
                   teeth. She wanted a natural, brighter smile that still felt like her
                   own — just more balanced, natural, and confidently beautiful.
                 </p>
 
                 <div className="mb-6">
-                  <h4 className="font-heading font-bold text-[#112a46] text-lg mb-3">
+                  <h4 className="font-heading font-bold text-white text-lg mb-3">
                     What we did
                   </h4>
 
-                  <ul className="space-y-3 text-sm text-text-light">
+                  <ul className="space-y-3 text-sm text-green-100/90">
                     <li className="flex items-center gap-2">
                       <div className="w-1.5 h-1.5 rounded-full bg-primary" />
                       Smile design planning with digital preview
@@ -719,16 +711,16 @@ const Home = () => {
       </section>
 
       {/* ===== 3D TEXT TESTIMONIALS CAROUSEL ===== */}
-      <section className="py-10 md:py-16 px-6 md:px-12 lg:px-24 bg-white relative overflow-x-hidden overflow-y-auto border-t border-green-50 sticky top-0 h-[100dvh] z-[45] shadow-[0_-20px_50px_rgba(0,0,0,0.1)] rounded-t-[2.5rem] flex flex-col justify-center">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(76,175,80,0.03),transparent)] pointer-events-none" />
+      <section className="py-10 md:py-16 px-6 md:px-12 lg:px-24 relative overflow-x-hidden overflow-y-auto border-t border-white/10 sticky top-0 h-[100dvh] z-[45] shadow-[0_-20px_50px_rgba(0,0,0,0.3)] rounded-t-[2.5rem] flex flex-col justify-center" style={{ background: 'linear-gradient(160deg, #0d4a2a 0%, #166534 35%, #1a7a40 100%)' }}>
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.2) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
         <div className="container mx-auto relative z-10">
 
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10">
-            <motion.span initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="inline-block bg-accent text-primary px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
+            <motion.span initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="inline-block bg-white/15 border border-white/30 text-white px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
               Real Stories
             </motion.span>
-            <h2 className="font-heading text-3xl md:text-5xl font-bold text-secondary mb-4">What Our Patients Say</h2>
-            <p className="text-lg text-text-light max-w-xl mx-auto">Real stories from happy patients. Click to watch their testimonials on Instagram!</p>
+            <h2 className="font-heading text-3xl md:text-5xl font-bold text-white mb-4">What Our Patients Say</h2>
+            <p className="text-lg text-green-100/80 max-w-xl mx-auto">Real stories from happy patients. Click to watch their testimonials on Instagram!</p>
           </motion.div>
 
           <div className="max-w-5xl mx-auto">
@@ -803,13 +795,19 @@ const Home = () => {
         </div>
       </section>
 
+      {/* ===== SPECIALISTS CAROUSEL ===== */}
+      <div className="relative sticky top-0 h-[100dvh] z-[48] shadow-[0_-20px_50px_rgba(0,0,0,0.3)] rounded-t-[2.5rem] bg-white overflow-hidden">
+        <SpecialistsCarousel />
+      </div>
+
       {/* ===== FINAL CTA BANNER ===== */}
-      <section className="py-16 md:py-20 px-6 md:px-12 lg:px-24 bg-accent relative overflow-x-hidden overflow-y-auto sticky top-0 h-[100dvh] z-50 shadow-[0_-20px_50px_rgba(0,0,0,0.1)] rounded-t-[2.5rem] flex flex-col justify-center border-t border-green-50">
-        <MorphBlob className="w-80 h-80 bg-primary/8 -top-20 -right-20" duration={9} />
+      <section className="py-16 md:py-20 px-6 md:px-12 lg:px-24 relative overflow-x-hidden overflow-y-auto sticky top-0 h-[100dvh] z-50 shadow-[0_-20px_50px_rgba(0,0,0,0.1)] rounded-t-[2.5rem] flex flex-col justify-center" style={{ background: 'linear-gradient(180deg, #0d4a2a 0%, #166534 25%, #22c55e 60%, #bbf7d0 85%, #ecfdf5 100%)' }}>
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+        <MorphBlob className="w-80 h-80 -top-20 -right-20" style={{ background: 'rgba(255,255,255,0.04)' }} duration={9} />
         <div className="container mx-auto relative z-10">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center">
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-secondary mb-4">Ready for Your Best Smile?</h2>
-            <p className="text-text-light text-lg mb-8 max-w-xl mx-auto">Join 15,000+ happy patients. Book your consultation today — it's quick and easy.</p>
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-white mb-4">Ready for Your Best Smile?</h2>
+            <p className="text-green-100/90 text-lg mb-8 max-w-xl mx-auto">Join 15,000+ happy patients. Book your consultation today — it's quick and easy.</p>
             <Link to="/contact">
               <motion.div
                 whileHover={{ scale: 1.05, boxShadow: '0 20px 50px rgba(76,175,80,0.4)' }}

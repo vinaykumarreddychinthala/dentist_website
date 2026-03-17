@@ -76,7 +76,7 @@ const experts = [
     bgClass: "bg-[#f8fbfa]",
     cardBg: "bg-white",
     textCardBg: "bg-white/50",
-    gradient: "bg-[radial-gradient(ellipse_60%_60%_at_50%_50%,rgba(76,175,80,0.04),transparent)]",
+    gradient: "bg-[radial-gradient(ellipse_60%_60%_at_50%_50%,rgba(34,197,94,0.04),transparent)]",
     border: "border-white/50",
   },
   {
@@ -112,13 +112,15 @@ const experts = [
   });
 
   return (
-    <div className="page-transition">
-      <section className="py-16 md:py-24 px-6 md:px-12 lg:px-24 bg-gradient-to-b from-accent to-white">
-        <div className="container mx-auto">
+    <div className="page-transition" style={{ background: 'linear-gradient(160deg, #0d4a2a 0%, #166534 20%, #1a7a40 40%, #0f5c32 60%, #166534 80%, #0d4a2a 100%)' }}>
+      <section className="py-16 md:py-24 px-6 md:px-12 lg:px-24 overflow-hidden relative" style={{ background: 'linear-gradient(135deg, #0d4a2a 0%, #166534 25%, #1a7a40 40%, #ffffff 100%)' }}>
+        <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 80% 70% at 0% 0%, rgba(10,50,28,0.95) 0%, rgba(22,101,52,0.6) 40%, transparent 75%)' }} />
+        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.25) 1px, transparent 1px)', backgroundSize: '36px 36px' }} />
+        <div className="container mx-auto relative z-10">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="font-heading text-4xl md:text-5xl font-bold text-secondary text-center mb-6"
+            className="font-heading text-4xl md:text-5xl font-bold text-white text-center mb-6"
             data-testid="about-title"
           >
             About Us
@@ -127,7 +129,7 @@ const experts = [
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-lg md:text-xl leading-relaxed text-text-light max-w-3xl mx-auto text-center"
+            className="text-lg md:text-xl leading-relaxed text-green-100/90 max-w-3xl mx-auto text-center"
           >
             A healthy smile begins with healthy teeth. At Dentis3Care, you get all
             advanced dental services: Smile Design, Root Canal Treatment, Implants,
@@ -213,17 +215,18 @@ const experts = [
   </div>
 </section>
       {/* ===== MEET OUR EXPERTS ===== */}
-      <section className="relative w-full text-center py-10 bg-accent z-0">
+      <section className="relative w-full text-center py-10 z-0" style={{ background: 'linear-gradient(160deg, #0a3d22 0%, #0d4a2a 50%, #166534 100%)' }}>
+        <div className="absolute inset-0 opacity-15" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.2) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
         <div className="container mx-auto">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-heading text-4xl md:text-5xl font-bold text-secondary mb-4"
+            className="font-heading text-4xl md:text-5xl font-bold text-white mb-4"
           >
             Meet Our Experts
           </motion.h2>
-          <p className="text-text-light text-lg">Leading specialists dedicated to your perfect smile.</p>
+          <p className="text-green-100/90 text-lg">Leading specialists dedicated to your perfect smile.</p>
         </div>
       </section>
 
@@ -283,7 +286,8 @@ const experts = [
       </div>
 
       {/* ===== HUMBLE BEGINNINGS (Now Below Doctors) ===== */}
-      <section className="py-16 md:py-24 px-6 md:px-12 lg:px-24 bg-white relative z-30">
+      <section className="py-16 md:py-24 px-6 md:px-12 lg:px-24 relative z-30" style={{ background: 'linear-gradient(160deg, #0d4a2a 0%, #166534 35%, #1a7a40 100%)' }}>
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.2) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
         <div className="container mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -291,10 +295,10 @@ const experts = [
             viewport={{ once: true }}
             className="max-w-4xl mx-auto"
           >
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-secondary mb-6">
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-white mb-6">
               From Humble Beginnings
             </h2>
-            <div className="space-y-4 text-lg text-text-light leading-relaxed mb-8">
+            <div className="space-y-4 text-lg text-green-100/90 leading-relaxed mb-8">
               <p>
                 Dentis3 Care started as a small family practice in downtown New York, founded by Dr. Amanda Torres and her mentor, Dr. James Whitfield. Their mission was simple: provide world-class dental care that feels like visiting a trusted friend, not a sterile medical facility.
               </p>
@@ -315,7 +319,7 @@ const experts = [
               </Link>
               <Link
                 to="/services"
-                className="inline-flex items-center gap-2 bg-white text-primary border-2 border-primary hover:bg-accent transition-all duration-300 rounded-full px-8 py-3 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm text-white border-2 border-white/40 hover:bg-white/25 transition-all duration-300 rounded-full px-8 py-3 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1"
               >
                 Explore Services
               </Link>
@@ -325,7 +329,7 @@ const experts = [
       </section>
 
       {/* ===== HORIZONTAL JOURNEY TIMELINE ===== */}
-      <section ref={horizontalScrollRef} className="relative h-[300vh] bg-accent">
+      <section ref={horizontalScrollRef} className="relative h-[300vh]" style={{ background: 'linear-gradient(135deg, #0d4a2a 0%, #166534 35%, #1a7a40 55%, #f0fdf4 100%)' }}>
         <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center pt-24 pb-16">
           {/* Continuous curving background path */}
           <div className="absolute inset-0 pointer-events-none z-0 flex items-center">
@@ -345,7 +349,7 @@ const experts = [
                 {/* Visual node on the "route" line */}
                 <div className={`absolute left-1/2 -translate-x-1/2 ${
                   index % 2 === 0 ? '-bottom-16' : '-top-16'
-                } w-4 h-4 bg-primary rounded-full shadow-[0_0_15px_rgba(76,175,80,0.5)]`} />
+                } w-4 h-4 bg-primary rounded-full shadow-[0_0_15px_rgba(34,197,94,0.5)]`} />
                 
                 {/* Connecting dotted line to the node */}
                 <div className={`absolute left-1/2 -translate-x-1/2 w-[2px] h-12 border-l-2 border-dashed border-primary/40 ${
@@ -372,19 +376,9 @@ const experts = [
         </div>
       </section>
 
-      <section className="relative py-16 md:py-24 px-6 md:px-12 lg:px-24 bg-gradient-to-br from-accent via-white to-white overflow-hidden">
-        {/* mesh gradient background */}
-<div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(76,175,80,0.12),transparent)]"></div>
-
-{/* dot grid pattern */}
-<div
-  className="absolute inset-0 opacity-50"
-  style={{
-    backgroundImage:
-      "radial-gradient(circle, rgba(76,175,80,0.15) 1px, transparent 1px)",
-    backgroundSize: "40px 40px",
-  }}
-></div>
+      <section className="relative py-16 md:py-24 px-6 md:px-12 lg:px-24 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0d4a2a 0%, #166534 25%, #1a7a40 40%, #ffffff 100%)' }}>
+        <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 80% 70% at 0% 0%, rgba(10,50,28,0.9) 0%, rgba(22,101,52,0.5) 40%, transparent 75%)' }} />
+        <div className="absolute inset-0 opacity-15" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.2) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
         <div className="container mx-auto relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -392,13 +386,13 @@ const experts = [
             viewport={{ once: true }}
             className="max-w-4xl mx-auto"
           >
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-secondary mb-4">
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-white mb-4">
               Our Technologies
             </h2>
-            <h3 className="text-2xl font-semibold text-primary mb-6">
+            <h3 className="text-2xl font-semibold text-green-300 mb-6">
               Precision Implants, Engineered to Last
             </h3>
-            <p className="text-lg text-text-light leading-relaxed mb-8">
+            <p className="text-lg text-green-100/90 leading-relaxed mb-8">
               We use only Swiss-manufactured titanium implants with a 99.2% ten-year success rate. Our guided implant surgery uses 3D cone-beam CT planning for millimeter precision, minimising recovery time and maximising long-term stability.
             </p>
             <div className="grid md:grid-cols-2 gap-4 mb-8">
@@ -433,7 +427,7 @@ const experts = [
         </div>
       </section>
 
-      <section className="py-16 px-6 md:px-12 lg:px-24">
+      <section className="py-16 px-6 md:px-12 lg:px-24 relative" style={{ background: 'linear-gradient(160deg, #0a3d22 0%, #0d4a2a 50%, #166534 100%)' }}>
         <div className="container mx-auto">
          <motion.div
            initial={{ opacity: 0, scale: 0.95 }}
@@ -459,25 +453,14 @@ const experts = [
         </div>
       </section>
 
-      <section className="relative py-16 md:py-24 px-6 md:px-12 lg:px-24 overflow-hidden bg-gradient-to-br from-green-50 via-white to-white">
-        {/* Mesh background */}
-<div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,rgba(76,175,80,0.15),transparent)]"></div>
-
-{/* Dot grid pattern */}
-<div
-  className="absolute inset-0 z-0 opacity-40"
-  style={{
-    backgroundImage:
-      "radial-gradient(circle, rgba(76,175,80,0.15) 1px, transparent 1px)",
-    backgroundSize: "40px 40px",
-  }}
-></div>
+      <section className="relative py-16 md:py-24 px-6 md:px-12 lg:px-24 overflow-hidden" style={{ background: 'linear-gradient(180deg, #166534 0%, #1a7a40 30%, #f0fdf4 70%, #ffffff 100%)' }}>
+        <div className="absolute inset-0 opacity-15" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.2) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
         <div className="container mx-auto relative z-10">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-heading text-3xl md:text-4xl font-bold text-secondary text-center mb-6"
+            className="font-heading text-3xl md:text-4xl font-bold text-white text-center mb-6"
           >
             Our Core Values
           </motion.h2>
@@ -486,7 +469,7 @@ const experts = [
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-lg text-text-light text-center mb-12 max-w-2xl mx-auto"
+            className="text-lg text-green-100/90 text-center mb-12 max-w-2xl mx-auto"
           >
             The principles that guide every decision, every treatment, every smile.
           </motion.p>
@@ -512,13 +495,14 @@ const experts = [
         </div>
       </section>
 
-      <section className="py-16 md:py-24 px-6 md:px-12 lg:px-24">
+      <section className="py-16 md:py-24 px-6 md:px-12 lg:px-24 relative" style={{ background: 'linear-gradient(160deg, #092e18 0%, #0d4a2a 40%, #0f5c32 100%)' }}>
+        <div className="absolute inset-0 opacity-15" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
         <div className="container mx-auto">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-heading text-3xl md:text-4xl font-bold text-secondary text-center mb-12"
+            className="font-heading text-3xl md:text-4xl font-bold text-white text-center mb-12"
           >
             Visit Us
           </motion.h2>
@@ -561,13 +545,14 @@ const experts = [
         </div>
       </section>
 
-      <section className="py-16 md:py-24 px-6 md:px-12 lg:px-24 bg-accent">
+      <section className="py-16 md:py-24 px-6 md:px-12 lg:px-24 relative" style={{ background: 'linear-gradient(160deg, #0d4a2a 0%, #166534 35%, #1a7a40 100%)' }}>
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.2) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
         <div className="container mx-auto">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-heading text-3xl md:text-4xl font-bold text-secondary text-center mb-12"
+            className="font-heading text-3xl md:text-4xl font-bold text-white text-center mb-12"
           >
             Our Clinic
           </motion.h2>

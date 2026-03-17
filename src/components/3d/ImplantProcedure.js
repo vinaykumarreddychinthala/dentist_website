@@ -14,7 +14,7 @@ const ImplantProcedure = () => {
     <group>
       <mesh ref={meshRef} position={[0, 0, 0]}>
         <cylinderGeometry args={[0.5, 0.5, 2, 32]} />
-        <meshStandardMaterial color="#2E7D32" />
+        <meshStandardMaterial color="#166534" />
       </mesh>
       <ambientLight intensity={0.5} />
       <pointLight position={[10, 10, 10]} />

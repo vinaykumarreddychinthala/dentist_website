@@ -18,9 +18,10 @@ const Particle = ({ delay, x, y, size }) => (
 );
 
 // Morphing blob background
-const MorphBlob = ({ className, duration = 8, delay = 0 }) => (
+const MorphBlob = ({ className, style, duration = 8, delay = 0 }) => (
   <motion.div
     className={`absolute rounded-full blur-3xl pointer-events-none ${className}`}
+    style={style}
     animate={{
       borderRadius: [
         '60% 40% 30% 70% / 60% 30% 70% 40%',
@@ -98,27 +99,24 @@ const Services = () => {
   ];
 
   return (
-    <div className="page-transition overflow-x-hidden" ref={containerRef}>
+    <div className="page-transition overflow-x-hidden" ref={containerRef} style={{ background: 'linear-gradient(160deg, #0d4a2a 0%, #166534 20%, #1a7a40 40%, #0f5c32 60%, #166534 80%, #0d4a2a 100%)' }}>
 
       {/* ===== HERO SECTION ===== */}
-      <section className="relative min-h-screen py-24 md:py-32 px-6 md:px-12 lg:px-24 bg-gradient-to-br from-accent via-white to-white overflow-hidden flex items-center">
+      <section className="relative min-h-screen py-24 md:py-32 px-6 md:px-12 lg:px-24 overflow-hidden flex items-center" style={{ background: 'linear-gradient(135deg, #0d4a2a 0%, #166534 25%, #1a7a40 40%, #ffffff 100%)' }}>
 
-        {/* Animated mesh background */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(76,175,80,0.12),transparent)]" />
-        
-        {/* Dot grid */}
+        {/* Background effects */}
+        <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 80% 70% at 0% 0%, rgba(10,50,28,0.95) 0%, rgba(22,101,52,0.6) 40%, transparent 75%)' }} />
         <motion.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: 0.5 }}
+          animate={{ opacity: 0.2 }}
           transition={{ duration: 3 }}
           className="absolute inset-0"
-          style={{ backgroundImage: 'radial-gradient(circle, rgba(76,175,80,0.15) 1px, transparent 1px)', backgroundSize: '40px 40px' }}
+          style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.25) 1px, transparent 1px)', backgroundSize: '40px 40px' }}
         />
 
         {/* Morphing blobs */}
-        <MorphBlob className="w-[600px] h-[600px] bg-primary/8 -top-60 -right-60" duration={10} />
-        <MorphBlob className="w-[400px] h-[400px] bg-green-300/10 -bottom-40 -left-40" duration={8} delay={3} />
-        <MorphBlob className="w-[300px] h-[300px] bg-emerald-200/15 top-1/2 right-1/4" duration={12} delay={1} />
+        <MorphBlob className="w-[800px] h-[800px] -top-80 -left-60" duration={10} style={{ background: 'rgba(5,30,15,0.5)' }} />
+        <MorphBlob className="w-[400px] h-[400px] bottom-0 right-0" duration={8} delay={3} style={{ background: 'rgba(255,255,255,0.05)' }} />
 
         {/* Floating particles */}
         {[...Array(12)].map((_, i) => (
@@ -132,7 +130,7 @@ const Services = () => {
             initial={{ opacity: 0, scale: 0.5, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.8, type: 'spring' }}
-            className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-green-100 text-primary px-5 py-2 rounded-full text-sm font-semibold shadow-lg mb-8"
+            className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/30 text-white px-5 py-2 rounded-full text-sm font-semibold shadow-lg mb-8"
           >
             <motion.span
               animate={{ rotate: [0, 15, -15, 0] }}
@@ -155,7 +153,7 @@ const Services = () => {
               initial={{ y: 100, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="font-heading text-5xl md:text-7xl lg:text-8xl font-extrabold text-secondary tracking-tight leading-none"
+              className="font-heading text-5xl md:text-7xl lg:text-8xl font-extrabold text-white tracking-tight leading-none"
               data-testid="services-title"
             >
               Excellence in
@@ -168,7 +166,7 @@ const Services = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             >
-              <span className="font-heading text-5xl md:text-7xl lg:text-8xl font-extrabold bg-gradient-to-r from-primary via-emerald-400 to-green-600 bg-clip-text text-transparent bg-[length:200%_auto]"
+              <span className="font-heading text-5xl md:text-7xl lg:text-8xl font-extrabold bg-gradient-to-r from-green-300 via-emerald-200 to-white bg-clip-text text-transparent bg-[length:200%_auto]"
                 style={{ animation: 'gradientShift 4s linear infinite' }}>
                 Dental Care
               </span>
@@ -201,7 +199,7 @@ const Services = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 1 }}
-            className="text-lg md:text-xl leading-relaxed text-text-light max-w-3xl mx-auto mb-10"
+            className="text-lg md:text-xl leading-relaxed text-green-100/90 max-w-3xl mx-auto mb-10"
           >
             Comprehensive dental care tailored to your needs. From preventive treatments to advanced smile transformations,{' '}
             <span className="text-primary font-semibold">we deliver confidence with every visit.</span>
@@ -216,7 +214,7 @@ const Services = () => {
           >
             <motion.a
               href="/contact"
-              whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(76,175,80,0.35)' }}
+              whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(34,197,94,0.35)' }}
               whileTap={{ scale: 0.97 }}
               className="inline-flex items-center gap-2 bg-primary text-white px-10 py-4 rounded-full font-semibold shadow-lg transition-all duration-300 relative overflow-hidden group"
             >
@@ -234,7 +232,7 @@ const Services = () => {
               href="#services"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}
-              className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-green-100 text-secondary px-8 py-4 rounded-full font-semibold shadow-sm hover:shadow-md transition-all duration-300"
+              className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/40 text-white px-8 py-4 rounded-full font-semibold shadow-sm hover:shadow-md transition-all duration-300"
             >
               Explore Services ↓
             </motion.a>
@@ -249,19 +247,19 @@ const Services = () => {
           >
             {[['15000+', 'Happy Patients'], ['10+', 'Years of Care'], ['99%', 'Success Rate']].map(([num, label], i) => (
               <div key={i} className="text-center">
-                <div className="font-heading text-2xl md:text-3xl font-extrabold text-primary">{num}</div>
-                <div className="text-xs text-text-light font-medium mt-1">{label}</div>
+                <div className="font-heading text-2xl md:text-3xl font-extrabold text-white">{num}</div>
+                <div className="text-xs text-green-200/80 font-medium mt-1">{label}</div>
               </div>
             ))}
           </motion.div>
         </div>
 
         {/* Bottom wave */}
-        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
-          <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-full h-20 text-white">
+        {/* <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+          <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-full h-20" style={{ color: '#0a3d22' }}>
             <path d="M0,0V46.29c47.79,22,103.59,29.05,158,17C230,45,284,0,339,0s108,45,162,63.29c54,18.34,108,0,162-17.29C717,28,771,28,825,46.29c54,18.34,108,0,162-17.29C1041,11,1095,11,1149,28.29V0Z" fill="currentColor" />
           </svg>
-        </div>
+        </div> */}
 
         <style>{`
           @keyframes gradientShift {
@@ -273,7 +271,7 @@ const Services = () => {
       </section>
 
       {/* ===== ANIMATED TOOTH SECTION ===== */}
-<section className="relative min-h-[650px] md:min-h-[750px] py-20 px-6 overflow-hidden flex items-center bg-gradient-to-b from-gray-50 via-white to-gray-100">
+<section className="relative min-h-[650px] md:min-h-[750px] py-20 px-6 overflow-hidden flex items-center" style={{ background: 'linear-gradient(160deg, #0a3d22 0%, #0d4a2a 50%, #166534 100%)' }}>
 {/* ===== Center Video ===== */}
 <div className="absolute inset-0 flex items-center justify-center">
 
@@ -344,7 +342,8 @@ const Services = () => {
 </section>
 
       {/* ===== SERVICES GRID ===== */}
-      <section id="services" className="py-16 md:py-28 px-6 md:px-12 lg:px-24 bg-white relative overflow-hidden">
+      <section id="services" className="py-16 md:py-28 px-6 md:px-12 lg:px-24 relative overflow-hidden" style={{ background: 'linear-gradient(160deg, #0a3d22 0%, #0f5c32 40%, #166534 100%)' }}>
+        <div className="absolute inset-0 opacity-15" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.2) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
         
         {/* Section header */}
         <motion.div
@@ -357,11 +356,11 @@ const Services = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="inline-block bg-accent text-primary px-4 py-1.5 rounded-full text-sm font-semibold mb-4"
+            className="inline-block bg-white/15 border border-white/30 text-white px-4 py-1.5 rounded-full text-sm font-semibold mb-4"
           >
             Our Specialties
           </motion.span>
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-secondary">
+          <h2 className="font-heading text-4xl md:text-5xl font-bold text-white">
             Services We Offer
           </h2>
         </motion.div>
@@ -471,10 +470,8 @@ const Services = () => {
       </section>
 
       {/* ===== FAQ SECTION ===== */}
-      <section className="py-16 md:py-28 px-6 md:px-12 lg:px-24 bg-accent relative overflow-hidden">
-        
-        <MorphBlob className="w-96 h-96 bg-primary/5 -top-20 -left-20" duration={10} />
-        <MorphBlob className="w-80 h-80 bg-green-200/20 -bottom-20 -right-20" duration={8} delay={2} />
+      <section className="py-16 md:py-28 px-6 md:px-12 lg:px-24 relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #0d4a2a 0%, #166534 25%, #22c55e 60%, #bbf7d0 85%, #ecfdf5 100%)' }}>
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
 
         <div className="container mx-auto relative z-10">
           <motion.div
@@ -487,13 +484,13 @@ const Services = () => {
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="inline-block bg-white text-primary px-4 py-1.5 rounded-full text-sm font-semibold mb-4 shadow-sm"
+              className="inline-block bg-white/15 border border-white/30 text-white px-4 py-1.5 rounded-full text-sm font-semibold mb-4 shadow-sm"
             >
               Got Questions?
             </motion.span>
-            <h2 className="font-heading text-3xl md:text-5xl font-bold text-secondary">
+            <h2 className="font-heading text-3xl md:text-5xl font-bold text-white">
               Frequently Asked
-              <span className="block bg-gradient-to-r from-primary to-emerald-500 bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-green-200 via-emerald-300 to-green-600 bg-clip-text text-transparent">
                 Questions
               </span>
             </h2>
@@ -512,15 +509,15 @@ const Services = () => {
                 <motion.button
                   onClick={() => setOpenFaq(openFaq === index ? null : index)}
                   className="w-full flex items-center justify-between p-6 text-left"
-                  whileHover={{ backgroundColor: 'rgba(76,175,80,0.04)' }}
+                  whileHover={{ backgroundColor: 'rgba(34,197,94,0.04)' }}
                   data-testid={`faq-question-${index}`}
                 >
                   <div className="flex items-center gap-4 pr-4">
                     <motion.span
-                      animate={{ backgroundColor: openFaq === index ? 'rgb(76,175,80)' : 'rgb(232,245,233)' }}
+                      animate={{ backgroundColor: openFaq === index ? 'rgb(34,197,94)' : 'rgb(220,252,231)' }}
                       transition={{ duration: 0.3 }}
                       className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold"
-                      style={{ color: openFaq === index ? 'white' : 'rgb(76,175,80)' }}
+                      style={{ color: openFaq === index ? 'white' : 'rgb(34,197,94)' }}
                     >
                       {String(index + 1).padStart(2, '0')}
                     </motion.span>
@@ -529,7 +526,7 @@ const Services = () => {
                     </span>
                   </div>
                   <motion.div
-                    animate={{ rotate: openFaq === index ? 180 : 0, backgroundColor: openFaq === index ? 'rgb(76,175,80)' : 'rgb(232,245,233)' }}
+                    animate={{ rotate: openFaq === index ? 180 : 0, backgroundColor: openFaq === index ? 'rgb(34,197,94)' : 'rgb(220,252,231)' }}
                     transition={{ duration: 0.3 }}
                     className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center"
                   >
@@ -562,10 +559,8 @@ const Services = () => {
       </section>
 
       {/* ===== CTA SECTION ===== */}
-      <section className="py-16 md:py-28 px-6 md:px-12 lg:px-24 bg-white relative overflow-hidden">
-        
-        {/* Subtle background */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_50%_50%,rgba(76,175,80,0.06),transparent)]" />
+      <section className="py-16 md:py-28 px-6 md:px-12 lg:px-24 relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #0d4a2a 0%, #166534 20%, #22c55e 55%, #86efac 75%, #dcfce7 90%, #f0fdf4 100%)' }}>
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
 
         <div className="container mx-auto text-center relative z-10">
           <motion.div
@@ -648,7 +643,7 @@ const Services = () => {
                 <motion.a
                   href="/contact"
                   data-testid="services-cta-button"
-                  whileHover={{ scale: 1.06, boxShadow: '0 20px 50px rgba(76,175,80,0.5)' }}
+                  whileHover={{ scale: 1.06, boxShadow: '0 20px 50px rgba(34,197,94,0.5)' }}
                   whileTap={{ scale: 0.97 }}
                   className="inline-flex items-center justify-center gap-2 bg-primary text-white rounded-full px-10 py-4 font-semibold text-lg shadow-lg transition-all duration-300 relative overflow-hidden group"
                 >

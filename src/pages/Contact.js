@@ -11,9 +11,10 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 // Morphing blob background element
-const MorphBlob = ({ className, duration = 8, delay = 0 }) => (
+const MorphBlob = ({ className, style, duration = 8, delay = 0 }) => (
   <motion.div
     className={`absolute rounded-full blur-3xl pointer-events-none ${className}`}
+    style={style}
     animate={{
       borderRadius: [
         '60% 40% 30% 70% / 60% 30% 70% 40%',
@@ -46,8 +47,8 @@ const FancyInput = ({ label, id, testId, type = 'text', value, onChange, require
       <label
         htmlFor={id}
         className={`absolute left-4 transition-all duration-300 pointer-events-none z-10 font-medium ${focused || hasValue
-            ? '-top-2.5 text-xs text-primary bg-white px-2 rounded-full'
-            : 'top-3.5 text-sm text-gray-400'
+          ? '-top-2.5 text-xs text-primary bg-white px-2 rounded-full'
+          : 'top-3.5 text-sm text-gray-400'
           }`}
       >
         {label}
@@ -172,19 +173,19 @@ const Contact = () => {
   ];
 
   return (
-    <div className="page-transition overflow-x-hidden">
+    <div className="page-transition overflow-x-hidden" style={{ background: 'linear-gradient(160deg, #0d4a2a 0%, #166534 20%, #1a7a40 40%, #0f5c32 60%, #166534 80%, #0d4a2a 100%)' }}>
 
       {/* ===== HERO ===== */}
-      <section className="relative min-h-[60vh] py-24 md:py-32 px-6 md:px-12 lg:px-24 bg-gradient-to-br from-accent via-white to-white overflow-hidden flex items-center">
+      <section className="relative min-h-[60vh] py-24 md:py-32 px-6 md:px-12 lg:px-24 overflow-hidden flex items-center" style={{ background: 'linear-gradient(135deg, #0d4a2a 0%, #166534 25%, #1a7a40 40%, #ffffff 100%)' }}>
 
         {/* Background effects */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(76,175,80,0.12),transparent)]" />
+        <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 80% 70% at 0% 0%, rgba(10,50,28,0.95) 0%, rgba(22,101,52,0.6) 40%, transparent 75%)' }} />
         <div
-          className="absolute inset-0 opacity-40"
-          style={{ backgroundImage: 'radial-gradient(circle, rgba(76,175,80,0.15) 1px, transparent 1px)', backgroundSize: '36px 36px' }}
+          className="absolute inset-0 opacity-20"
+          style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.25) 1px, transparent 1px)', backgroundSize: '36px 36px' }}
         />
-        <MorphBlob className="w-[500px] h-[500px] bg-primary/8 -top-40 -right-40" duration={10} />
-        <MorphBlob className="w-[300px] h-[300px] bg-emerald-200/15 -bottom-20 -left-20" duration={8} delay={2} />
+        <MorphBlob className="w-[700px] h-[700px] -top-60 -left-40" duration={10} style={{ background: 'rgba(5,30,15,0.5)' }} />
+        <MorphBlob className="w-[400px] h-[400px] bottom-0 right-0" duration={8} delay={2} style={{ background: 'rgba(255,255,255,0.04)' }} />
 
         {/* Floating particles */}
         {[...Array(10)].map((_, i) => (
@@ -197,7 +198,7 @@ const Contact = () => {
             initial={{ opacity: 0, scale: 0.6, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.7, type: 'spring' }}
-            className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-green-100 text-primary px-5 py-2 rounded-full text-sm font-semibold shadow-lg mb-8"
+            className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/30 text-white px-5 py-2 rounded-full text-sm font-semibold shadow-lg mb-8"
           >
             <motion.span animate={{ rotate: [0, 15, -15, 0] }} transition={{ duration: 2, repeat: Infinity }}>✦</motion.span>
             We'd Love to Hear From You
@@ -209,7 +210,7 @@ const Contact = () => {
               initial={{ y: 80, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-              className="font-heading text-5xl md:text-7xl font-extrabold text-secondary tracking-tight"
+              className="font-heading text-5xl md:text-7xl font-extrabold text-white tracking-tight"
               data-testid="contact-title"
             >
               Get In Touch
@@ -222,7 +223,7 @@ const Contact = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
             >
-              <span className="font-heading text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-primary via-emerald-400 to-green-600 bg-clip-text text-transparent"
+              <span className="font-heading text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-green-300 via-emerald-200 to-white bg-clip-text text-transparent"
                 style={{ backgroundSize: '200% auto', animation: 'gradientShift 4s linear infinite' }}>
                 With Our Team
               </span>
@@ -233,7 +234,7 @@ const Contact = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.9 }}
-            className="text-lg md:text-xl text-text-light max-w-2xl mx-auto"
+            className="text-lg md:text-xl text-green-100/90 max-w-2xl mx-auto"
           >
             Get in touch for appointments, inquiries, or any questions about our services.{' '}
             <span className="text-primary font-semibold">We're always here for your smile.</span>
@@ -241,11 +242,11 @@ const Contact = () => {
         </div>
 
         {/* Wave bottom */}
-        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
-          <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-full h-16 text-white">
+        {/* <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+          <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-full h-16" style={{ color: '#0a3d22' }}>
             <path d="M0,0V46.29c47.79,22,103.59,29.05,158,17C230,45,284,0,339,0s108,45,162,63.29c54,18.34,108,0,162-17.29C717,28,771,28,825,46.29c54,18.34,108,0,162-17.29C1041,11,1095,11,1149,28.29V0Z" fill="currentColor" />
           </svg>
-        </div>
+        </div> */}
 
         <style>{`
           @keyframes gradientShift {
@@ -259,7 +260,8 @@ const Contact = () => {
 
 
       {/* ===== CONTACT INFO CARDS ===== */}
-      <section className="py-12 px-6 md:px-12 lg:px-24 bg-white">
+      <section className="py-12 px-6 md:px-12 lg:px-24 relative" style={{ background: 'linear-gradient(160deg, #0a3d22 0%, #0d4a2a 50%, #166534 100%)' }}>
+        <div className="absolute inset-0 opacity-15" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.2) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
         <div className="container mx-auto">
           <div className="grid md:grid-cols-3 gap-6">
             {contactInfo.map((item, i) => {
@@ -308,9 +310,8 @@ const Contact = () => {
       </section>
 
       {/* ===== CALENDAR SECTION ===== */}
-      <section className="py-16 px-6 md:px-12 lg:px-24 bg-accent relative overflow-hidden">
-        <MorphBlob className="w-72 h-72 bg-primary/8 -top-20 -left-20" duration={9} />
-        <MorphBlob className="w-56 h-56 bg-emerald-200/20 -bottom-16 -right-16" duration={7} delay={2} />
+      <section className="py-16 px-6 md:px-12 lg:px-24 relative overflow-hidden" style={{ background: 'linear-gradient(160deg, #092e18 0%, #0d4a2a 40%, #0f5c32 100%)' }}>
+        <div className="absolute inset-0 opacity-15" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px)', backgroundSize: '36px 36px' }} />
 
         <div className="container mx-auto relative z-10">
           <motion.div
@@ -324,13 +325,13 @@ const Contact = () => {
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                className="inline-block bg-white text-primary px-4 py-1.5 rounded-full text-sm font-semibold mb-3 shadow-sm"
+                className="inline-block bg-white/15 border border-white/30 text-white px-4 py-1.5 rounded-full text-sm font-semibold mb-3 shadow-sm"
               >
                 Find Us
               </motion.div>
-              <h2 className="font-heading text-3xl md:text-4xl font-bold text-secondary">
+              <h2 className="font-heading text-3xl md:text-4xl font-bold text-white">
                 We're Just Around
-                <span className="block bg-gradient-to-r from-primary to-emerald-500 bg-clip-text text-transparent">
+                <span className="block bg-gradient-to-r from-green-300 via-emerald-200 to-white bg-clip-text text-transparent">
                   The Corner
                 </span>
               </h2>
@@ -393,8 +394,8 @@ const Contact = () => {
       </section>
 
       {/* ===== CONTACT INFO + FORMS ===== */}
-      <section className="py-16 md:py-24 px-6 md:px-12 lg:px-24 bg-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_50%_50%,rgba(76,175,80,0.04),transparent)]" />
+      <section className="py-16 md:py-24 px-6 md:px-12 lg:px-24 relative overflow-hidden" style={{ background: 'linear-gradient(160deg, #0d4a2a 0%, #166534 35%, #1a7a40 100%)' }}>
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.2) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
 
         <div className="container mx-auto relative z-10">
           <div className="grid lg:grid-cols-2 gap-12">
@@ -410,13 +411,13 @@ const Contact = () => {
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                className="inline-block bg-accent text-primary px-4 py-1.5 rounded-full text-sm font-semibold mb-3"
+                className="inline-block bg-white/15 border border-white/30 text-white px-4 py-1.5 rounded-full text-sm font-semibold mb-3"
               >
                 Pick a Date
               </motion.div>
-              <h2 className="font-heading text-3xl md:text-4xl font-bold text-secondary mb-8">
+              <h2 className="font-heading text-3xl md:text-4xl font-bold text-white mb-8">
                 Select Your
-                <span className="block bg-gradient-to-r from-primary to-emerald-500 bg-clip-text text-transparent">
+                <span className="block bg-gradient-to-r from-green-300 via-emerald-200 to-white bg-clip-text text-transparent">
                   Preferred Date
                 </span>
               </h2>
@@ -431,16 +432,16 @@ const Contact = () => {
                 <style>{`
                   .rdp {
                     --rdp-cell-size: 46px;
-                    --rdp-accent-color: #4CAF50;
-                    --rdp-background-color: #E8F5E9;
+                    --rdp-accent-color: var(--primary);
+                    --rdp-background-color: var(--accent);
                     font-family: inherit;
                   }
-                  .rdp-day_selected { background-color: #4CAF50 !important; color: white !important; border-radius: 50%; }
-                  .rdp-day_today { font-weight: bold; color: #2E7D32; }
-                  .rdp-day:hover:not(.rdp-day_selected) { background-color: #e8f5e9; border-radius: 50%; }
-                  .rdp-head_cell { color: #4CAF50; font-weight: 700; text-transform: uppercase; font-size: 11px; }
+                  .rdp-day_selected { background-color: #22c55e !important; color: white !important; border-radius: 50%; }
+                  .rdp-day_today { font-weight: bold; color: #166534; }
+                  .rdp-day:hover:not(.rdp-day_selected) { background-color: var(--accent); border-radius: 50%; }
+                  .rdp-head_cell { color: #22c55e; font-weight: 700; text-transform: uppercase; font-size: 11px; }
                   .rdp-caption_label { font-weight: 700; color: #1a2e1a; }
-                  .rdp-nav_button { color: #4CAF50 !important; }
+                  .rdp-nav_button { color: #22c55e !important; }
                 `}</style>
                 <DayPicker
                   mode="single"

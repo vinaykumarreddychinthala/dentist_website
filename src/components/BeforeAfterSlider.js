@@ -77,8 +77,18 @@ const BeforeAfterSlider = ({
       </motion.div>
 
       {/* Labels */}
-      <div className="absolute top-4 left-4 bg-black/40 backdrop-blur-md text-white px-4 py-1.5 rounded-full text-xs font-bold tracking-wide z-20 pointer-events-none">Before</div>
-      <div className="absolute top-4 right-4 bg-primary/80 backdrop-blur-md text-white px-4 py-1.5 rounded-full text-xs font-bold tracking-wide z-20 pointer-events-none shadow-sm shadow-green-900/20">After</div>
+      <div 
+        className="absolute top-4 left-4 bg-black/40 backdrop-blur-md text-white px-4 py-1.5 rounded-full text-xs font-bold tracking-wide z-20 pointer-events-none transition-opacity duration-300"
+        style={{ opacity: sliderPosition > 15 ? 1 : 0 }}
+      >
+        Before
+      </div>
+      <div 
+        className="absolute top-4 right-4 bg-primary/80 backdrop-blur-md text-white px-4 py-1.5 rounded-full text-xs font-bold tracking-wide z-20 pointer-events-none shadow-sm shadow-green-900/20 transition-opacity duration-300"
+        style={{ opacity: sliderPosition < 85 ? 1 : 0 }}
+      >
+        After
+      </div>
     </div>
   );
 };

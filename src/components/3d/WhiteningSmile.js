@@ -15,7 +15,7 @@ const WhiteningSmile = () => {
       {[...Array(3)].map((_, i) => (
         <mesh key={i} position={[Math.cos((i / 3) * Math.PI * 2) * 1.5, Math.sin((i / 3) * Math.PI * 2) * 1.5, 0]}>
           <sphereGeometry args={[0.5, 16, 16]} />
-          <meshStandardMaterial color="#4CAF50" />
+          <meshStandardMaterial color="#22c55e" />
         </mesh>
       ))}
       <ambientLight intensity={0.5} />
